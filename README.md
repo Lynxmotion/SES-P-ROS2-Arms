@@ -8,7 +8,7 @@ The ROS2-PRO-Arms repository contains common packages that are used by both the 
 - [Package installation](#package-installation)
 - [Description package](#description-package)
 - [MoveIt package](#moveit-package)
-- [Follow goal example](#lss-ignition-moveit-example)
+- [Simulated examples (C++)](#lss-ignition-moveit-example)
 - [Author](#author)
 - [Resources](#resources)
 
@@ -137,7 +137,7 @@ ros2 launch pro_arm_moveit fake_arm_control.launch.py size:=900
 ```
 ros2 launch pro_arm_moveit sim_arm_control.launch.py dof:=5
 ```
-# TODO
+--------------------------- TODO START ---------------------------
 
 **Real controller (RViz + Real Robot)**
 
@@ -149,7 +149,7 @@ Before controlling the real robot first follow these steps:
 
 3. Calibrate the arm using [FlowArm](https://www.robotshop.com/products/lynxmotion-lss-lss-flowarm-app-download)
 
-4. Set the *Baud rate* to 921600 and the *Gyre Direction* to CCW (-1) for all the servos
+4. Set the *Gyre Direction* to CCW (-1) for all the motors
 
 To control the arm:
 
@@ -188,11 +188,13 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 ```
 * Note: For the 6DoF version add an extra - 0
 
+--------------------------- TODO END ---------------------------
+
 ### LSS Ignition MoveIt Example
 
-The lss_ign_moveit_example package contains an example of a C++ implementation to follow a target. This is simulated in Gazebo Ignition, the target (box) can be moved in the world and the Arm will move to the desired position.
-
 **Follow Goal Demo (Simulation)**
+
+The lss_ign_moveit_example package contains an example of a C++ implementation to follow a target. This is simulated in Gazebo Ignition, the target (box) can be moved in the world and the Arm will move to the desired position.
 
 ```
 ros2 launch pro_sim_examples ex_cpp_follow_target.launch.py size:=900
@@ -201,6 +203,8 @@ ros2 launch pro_sim_examples ex_cpp_follow_target.launch.py size:=900
 Note: The 5DoF version does not have enough degrees of freedom to achieve all desired position + orientation targets. This implementation adjusts the goal orientation so it is always parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
 
 **Move Object Demo (Simulation)**
+
+The lss_ign_moveit_example package contains an example of a C++ implementation to move a box from a table to another. The motions are simulated in Gazebo Ignition.
 
 ```
 ros2 launch pro_sim_examples ex_cpp_move_object.launch.py
