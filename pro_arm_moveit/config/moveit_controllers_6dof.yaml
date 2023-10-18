@@ -1,0 +1,23 @@
+controller_names:
+  - arm_trajectory_controller
+  # - gripper_action_controller
+  
+arm_trajectory_controller:
+  action_ns: follow_joint_trajectory
+  type: FollowJointTrajectory
+  default: true
+  joints:
+    - pro_arm_joint_1
+    - pro_arm_joint_2
+    - pro_arm_joint_3
+    - pro_arm_joint_4
+    - pro_arm_joint_5
+    - pro_arm_joint_6
+
+# gripper_action_controller:
+#   action_ns: gripper_cmd
+#   type: GripperCommand
+#   default: true
+#   joints:
+#     - pro_arm_joint_6
+#     - pro_arm_joint_7

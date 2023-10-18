@@ -1,0 +1,481 @@
+<sdf version='1.9'>
+  <model name='pro_arm_5dof_900'>
+    <joint name='pro_arm_base_joint' type='fixed'>
+      <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+      <parent>world</parent>
+      <child>pro_arm_base_link</child>
+    </joint>
+    <link name='pro_arm_base_link'>
+      <pose relative_to='pro_arm_base_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-1.0222e-11 0.011953 -2.0453e-11 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.00057165999999999998</ixx>
+          <ixy>2.68e-14</ixy>
+          <ixz>1.4176999999999999e-10</ixz>
+          <iyy>0.0010817999999999999</iyy>
+          <iyz>8.3180000000000005e-14</iyz>
+          <izz>0.00057165000000000004</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_base_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_base_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_base_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pro_arm_joint_1' type='revolute'>
+      <pose relative_to='pro_arm_base_link'>0 0 0.042 -1.570792653576406 1.570792653605768 3.141592653589793</pose>
+      <parent>pro_arm_base_link</parent>
+      <child>pro_arm_link_1</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>130</effort>
+          <velocity>1.5700000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.5</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='pro_arm_link_1'>
+      <pose relative_to='pro_arm_joint_1'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.063361 -1.8355e-05 -0.00060159 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.00088343999999999998</ixx>
+          <ixy>-5.4225000000000002e-09</ixy>
+          <ixz>8.5017000000000003e-06</ixz>
+          <iyy>0.00079516000000000005</iyy>
+          <iyz>-4.6470000000000002e-09</iyz>
+          <izz>0.00091104999999999995</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_link_1_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_1.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_link_1_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_1.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pro_arm_joint_2' type='revolute'>
+      <pose relative_to='pro_arm_link_1'>-0.075 0 -0.063583 1.172092653599064 1.570792653605768 2.270002653592138</pose>
+      <parent>pro_arm_link_1</parent>
+      <child>pro_arm_link_2</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-1.570796326794897</lower>
+          <upper>1.570796326794897</upper>
+          <effort>130</effort>
+          <velocity>1.5700000000000001</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.5</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='pro_arm_link_2'>
+      <pose relative_to='pro_arm_joint_2'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0826489985469987 0.115830980187337 -0.0588067754556333 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.0044665869776592598</ixx>
+          <ixy>6.3642133012885001e-06</ixy>
+          <ixz>-3.2469698364543102e-06</ixz>
+          <iyy>0.0023754389914929499</iyy>
+          <iyz>0.00085754001198963797</iyz>
+          <izz>0.0036085135302251301</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_link_2_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_2.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_link_2_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_2.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pro_arm_joint_3' type='revolute'>
+      <pose relative_to='pro_arm_link_2'>0 0.36722 -0.18789 0.3124799999999999 0 0</pose>
+      <parent>pro_arm_link_2</parent>
+      <child>pro_arm_link_3</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-2.0943951023931948</lower>
+          <upper>2.0943951023931948</upper>
+          <effort>54</effort>
+          <velocity>0.78539999999999999</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.5</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='pro_arm_link_3'>
+      <pose relative_to='pro_arm_joint_3'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-0.009954384245915564 0.08315808608688641 -0.08303117429836236 0 0 0</pose>
+        <mass>2</mass>
+        <inertia>
+          <ixx>0.031785868977230902</ixx>
+          <ixy>0.0024570678374293891</ixy>
+          <ixz>-0.0024538515468954681</ixz>
+          <iyy>0.016765191499547739</iyy>
+          <iyz>0.015345388047421899</iyz>
+          <izz>0.01680234681089952</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_link_3_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_3.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='pro_arm_link_3_fixed_joint_lump__pro_arm_link_4_collision_1'>
+        <pose>-0.024583 0.0026942 -0.0026942 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_4.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_link_3_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_3.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+      <visual name='pro_arm_link_3_fixed_joint_lump__pro_arm_link_4_visual_1'>
+        <pose>-0.024583 0.0026942 -0.0026942 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_4.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pro_arm_joint_5' type='revolute'>
+      <pose relative_to='pro_arm_link_3'>0.023417 0.2909742 -0.2909742 -0.7854000000000001 0 0</pose>
+      <parent>pro_arm_link_3</parent>
+      <child>pro_arm_link_5</child>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>19</effort>
+          <velocity>0.78539999999999999</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.5</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='pro_arm_link_5'>
+      <pose relative_to='pro_arm_joint_5'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.0449928461965346 -0.000256793176622971 4.79955057997106e-05 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.00024826391825770401</ixx>
+          <ixy>-1.26708446953254e-06</ixy>
+          <ixz>2.83208766882495e-08</ixz>
+          <iyy>0.000198829511118026</iyy>
+          <iyz>1.04647409519695e-07</iyz>
+          <izz>0.000183426745229536</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_link_5_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_5.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_link_5_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_5.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='pro_arm_joint_6' type='revolute'>
+      <pose relative_to='pro_arm_link_5'>0.076 -0.048 0 -3.141585307179587 -1.545400000000002 -3.141585307179587</pose>
+      <parent>pro_arm_link_5</parent>
+      <child>pro_arm_link_6</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-3.1415926535897931</lower>
+          <upper>3.1415926535897931</upper>
+          <effort>19</effort>
+          <velocity>0.78539999999999999</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.5</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+      <physics>
+        <ode>
+          <limit>
+            <cfm>0</cfm>
+            <erp>0.20000000000000001</erp>
+          </limit>
+        </ode>
+      </physics>
+    </joint>
+    <link name='pro_arm_link_6'>
+      <pose relative_to='pro_arm_joint_6'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>3.83807569059869e-15 -0.0125000000000002 0.000195763682872163 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>5.4307489272127899e-05</ixx>
+          <ixy>-8.4166960395035794e-21</ixy>
+          <ixz>1.35169517722841e-17</ixz>
+          <iyy>0.000100760354633415</iyy>
+          <iyz>1.3098385758206299e-21</iyz>
+          <izz>5.4873397232815998e-05</izz>
+        </inertia>
+      </inertial>
+      <collision name='pro_arm_link_6_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/collision/pro_arm_link_6.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0.29999999999999999</mu>
+              <mu2>0.29999999999999999</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='pro_arm_link_6_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes_900/visual/pro_arm_link_6.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941175 0.941175 0.941175 1</diffuse>
+          <ambient>0.941175 0.941175 0.941175 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <plugin name='ign_ros2_control::IgnitionROS2ControlPlugin' filename='ign_ros2_control-system'>
+      <parameters>/home/geraldinebc/Documents/GIT/local_pro_tests/install/pro_arm_moveit/share/pro_arm_moveit/config/controllers_5dof.yaml</parameters>
+    </plugin>
+    <frame name='pro_arm_joint_4' attached_to='pro_arm_link_3'>
+      <pose>-0.024583 0.002694 -0.002694 0 -0 0</pose>
+    </frame>
+    <frame name='pro_arm_link_4' attached_to='pro_arm_joint_4'/>
+    <frame name='pro_arm_ee_virtual_joint' attached_to='pro_arm_link_6'>
+      <pose>0 -0.025 0 0 -0 0</pose>
+    </frame>
+    <frame name='pro_arm_ee' attached_to='pro_arm_ee_virtual_joint'/>
+  </model>
+</sdf>
