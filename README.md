@@ -14,22 +14,23 @@ The ROS2-PRO-Arms repository contains common packages that are used by both the 
 
 ## Prerequisites
 
-1. [ROS 2 Humble](https://docs.ros.org/en/humble/Installation.html)
-2. ROS 2 dev tools:
-    - [colcon-common-extensions](https://pypi.org/project/colcon-common-extensions/)
-    - [vcs](https://pypi.org/project/vcstool/): Automates cloning of git repositories declared on a YAML file.
-3. Rosdep: Used to install dependencies when building from sources
+1. [Ubuntu 22.04.3 (Jammy Jellyfish)](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
+2. [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
+3. ROS2 dev tools:
+```
+sudo pip install colcon-common-extensions
+sudo pip install vcstool
+```
+4. Rosdep: Used to install dependencies when building from sources
 ```
 sudo apt install python3-rosdep2
 rosdep update
 ```
-4. Gazebo Ignition Fortress
+5. Catch2
 ```
-sudo apt-get update && sudo apt-get install wget
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-sudo apt-get update && sudo apt-get install ignition-fortress
+sudo apt install ros-humble-ament-cmake-catch2
 ```
+6. [Gazebo Ignition Fortress](https://gazebosim.org/docs/fortress/install_ubuntu)
 
 ## Package installation
 
@@ -69,12 +70,37 @@ The pro_arm_description package contains the URDF description & SDF model of the
 
 It contains scripts that convert xacro into the required URDF and SDF files.
 
-To generate the **required** SDF file used for the simulation run:
+To generate the **REQUIRED** SDF file used for the simulation run:
 ```
 bash src/pro_arm_description/scripts/xacro2sdf.bash
 ```
 
-The script defaults to the 6DoF 550mm version. To generate the SDF of the 5DoF 900mm model run:
+All the available sdf generation scripts have the following configuration options:
+
+**-d:** Which PRO Arm version to use
+- options: 5, 6
+- default: 6
+
+**-s**: Size of the model to use
+- options: 550, 900
+- default: 550
+
+**-g**: Gripper model to use
+- options: none, pge_5040, cge_1010
+- default: none
+
+**-f**: Finger model to use
+- options: 20, 40, 60, 80
+- default: 40
+
+The script defaults to the 6DoF 550mm model without gripper. 
+
+To generate the SDF of the 6DoF 550mm model with the gripper PGE_5040, 60mm finger version run:
+```
+bash src/pro_arm_description/scripts/xacro2sdf.bash -g pge_5040 -f 60
+```
+
+To generate the SDF of the 5DoF 900mm model run:
 ```
 bash src/pro_arm_description/scripts/xacro2sdf.bash -d 5 -s 900
 ```
@@ -97,17 +123,71 @@ All the available launch files have the following configuration options:
 - options: 550, 900
 - default: 550
 
+**gripper**: Gripper model to use
+- options: none, pge_5040, cge_1010
+- default: none
+
+**finger**: Finger separation model to use
+- options: 20, 40, 60, 80
+- default: 40
+
+* The 20 model is only available for the cge_1010 gripper and the 80 is only available for the pge_5040 gripper
+
 **View Model in Rviz**
 
 ```
 ros2 launch pro_arm_description view.launch.py
 ```
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550.jpg" height="210px"/>
+        <br>size 550mm gripper none
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_pge_5040_40.jpg" height="210px"/>
+        <br>size 550mm gripper pge_5040 finger 40
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_cge_1010_20.jpg" height="210px"/>
+        <br>size 550mm gripper cge_1010 finger 20
+      </td>
+    </tr>
+  </table>
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900.jpg" height="210px"/>
+        <br>size 900mm gripper none
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900_pge_5040_80.jpg" height="210px"/>
+        <br>size 900mm gripper pge_5040 finger 80
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900_cge_1010_60.jpg" height="210px"/>
+        <br>size 900mm gripper cge_1010 finger 60
+      </td>
+    </tr>
+  </table>
+</p>
+
+<p align="center">
+  <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_pge_5040_60.gif" width="600px"/>
+</p>
 
 **View in Gazebo Ignition**
 
 ```
-ros2 launch pro_arm_description view_ign.launch.py dof:=5
+ros2 launch pro_arm_description view_ign.launch.py size:=900 gripper:=pge_5040 finger:=60
 ```
+
+<p align="center">
+  <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/ign_view_900_pge_5040_60.jpg" width="600px"/>
+</p>
+
+* Note that the generated SDF model is required.
 
 ### MoveIt package
 
@@ -131,6 +211,8 @@ The following launch files are available:
 ```
 ros2 launch pro_arm_moveit fake_arm_control.launch.py size:=900
 ```
+
+
 
 **Simulated controllers (Rviz + Gazebo Ignition Simulation)**
 
@@ -190,24 +272,36 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 
 --------------------------- TODO END ---------------------------
 
-### LSS Ignition MoveIt Example
+### PRO Simulation Examples
+
+**C++**
 
 **Follow Goal Demo (Simulation)**
 
-The lss_ign_moveit_example package contains an example of a C++ implementation to follow a target. This is simulated in Gazebo Ignition, the target (box) can be moved in the world and the Arm will move to the desired position.
+The pro_sim_examples package includes the follow_target demo which simulates the LSS arm in Gazebo Ignition and allows the user to interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
 ```
-ros2 launch pro_sim_examples ex_cpp_follow_target.launch.py size:=900
+ros2 launch pro_sim_examples demo_cpp_follow_target.launch.py
 ```
 
-Note: The 5DoF version does not have enough degrees of freedom to achieve all desired position + orientation targets. This implementation adjusts the goal orientation so it is always parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
+Note: The 5DoF version does not have enough degrees of freedom to achieve all desired end-effector poses. This implementation first attempts to move to the desired pose, if unsuccessful it adjusts the goal orientation so it is parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
 
 **Move Object Demo (Simulation)**
 
-The lss_ign_moveit_example package contains an example of a C++ implementation to move a box from a table to another. The motions are simulated in Gazebo Ignition.
+The move_object example contains a C++ implementation to make the arm move a box from one table to another. The motions are simulated in Gazebo Ignition.
 
 ```
-ros2 launch pro_sim_examples ex_cpp_move_object.launch.py
+ros2 launch pro_sim_examples demo_cpp_move_object.launch.py
+```
+
+**Python**
+
+**Move to Coordinate (Simulation)**
+
+The move_to+coord example contains a Python implementation to make the arm move to the position the user inputs.
+
+```
+ros2 launch pro_sim_examples demo_py_move_to_coord.launch.py
 ```
 
 ## Author
@@ -216,12 +310,12 @@ ros2 launch pro_sim_examples ex_cpp_move_object.launch.py
 
 ## Resources
 
-Read more about the LSS Robotic Arm in the [Wiki](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/ses-v2-arms/).
+Read more about the PRO Robotic Arm in the [Wiki](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/ses-pro-arms/).
 
-Purchase the LSS arm on [RobotShop](https://www.robotshop.com/collections/lynxmotion-smart-servos-articulated-arm).
+Purchase the PRO arm on [RobotShop](https://www.robotshop.com/collections/lynxmotion-ses-pro-robotic-arms).
 
-Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https://github.com/Lynxmotion/LSS-ROS2-Control).
+Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https://github.com/Lynxmotion/LSS-ROS2-Control). --------------------------- TODO UPDATE ---------------------------
 
-If you want more details about the LSS protocol, go [here](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo/lss-communication-protocol/).
+If you want more details about the LSS-P communication protocol, visit this [website](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo-pro/lss-p-communication-protocol/).
 
 Have any questions? Ask them on the RobotShop [Community](https://community.robotshop.com/forum/c/lynxmotion/electronics-software/27).
