@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<!-- Xacro for PRO Arm Gripper -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--                   -->
+  <!-- Imported elements -->
+  <!--                   -->
+  <xacro:include filename="$(find pro_arm_description)/urdf/pro_arm_utils.xacro"/>
+
+  <!--            -->
+  <!-- Properties -->
+  <!--            -->
+  <xacro:property name="joint_6_name" value="joint_6"/>
+  <xacro:property name="joint_6_type" value="revolute"/>
+  <xacro:property name="joint_6_axis_xyz" value="0 1 0"/>
+  <xacro:property name="joint_6_lower_limit" value="${-pi}"/>
+  <xacro:property name="joint_6_upper_limit" value="${pi}"/>
+  <xacro:property name="joint_6_velocity_limit" value="6.283"/>
+  <xacro:property name="joint_6_torque_limit" value="6.5"/>
+  <xacro:property name="joint_6_damping" value="0.01"/>
+  <xacro:property name="joint_6_friction" value="3.48"/>
+  <xacro:property name="link_6_name" value="gripper"/>
+  <xacro:property name="link_6_mu" value="0.3"/>
+
+  <xacro:if value="${'$(arg size)' == '550'}">
+    <xacro:property name="joint_6_origin_xyz" value="0.036042 -0.049 0"/>
+    <xacro:property name="joint_6_origin_rpy" value="0 -0.54345 0"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg size)' == '900'}">
+    <xacro:property name="joint_6_origin_xyz" value="0.049831 -0.049 0"/>
+    <xacro:property name="joint_6_origin_rpy" value="0 -0.6 0"/>
+  </xacro:if>
+
+  <xacro:property name="joint_finger_lower_limit" value="0"/>
+  <xacro:property name="joint_finger_upper_limit" value="${0.01}"/>
+  <xacro:property name="joint_finger_velocity_limit" value="6.283"/>
+  <xacro:property name="joint_finger_torque_limit" value="1.45"/>
+  <xacro:property name="joint_finger_damping" value="0.01"/>
+  <xacro:property name="joint_finger_friction" value="0.4"/>
+  <xacro:property name="link_finger_mu" value="0.3"/>
+
+  <xacro:property name="joint_finger_1_name" value="joint_7"/>
+  <xacro:property name="joint_finger_1_type" value="prismatic"/>
+  <xacro:property name="link_finger_1_name" value="finger_1"/>
+
+  <xacro:if value="${'$(arg finger)' == '20'}">
+    <xacro:property name="joint_finger_1_origin_xyz" value="-0.01 -0.131 -0.005"/>
+    <xacro:property name="joint_finger_1_origin_rpy" value="3.1377 0.50374 3.1377"/>
+    <xacro:property name="joint_finger_1_axis_xyz" value="-1 0 0"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '40'}">
+    <xacro:property name="joint_finger_1_origin_xyz" value="-0.009 -0.131 -0.0017677"/>
+    <xacro:property name="joint_finger_1_origin_rpy" value="3.1377 0 3.1377"/>
+    <xacro:property name="joint_finger_1_axis_xyz" value="0 0 1"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '60'}">
+    <xacro:property name="joint_finger_1_origin_xyz" value="-0.025 -0.131 -0.0017677"/>
+    <xacro:property name="joint_finger_1_origin_rpy" value="3.1377 1 3.1377"/>
+    <xacro:property name="joint_finger_1_axis_xyz" value="0 0 -1"/>
+  </xacro:if>
+
+  <xacro:property name="joint_finger_2_name" value="joint_8"/>
+  <xacro:property name="joint_finger_2_type" value="prismatic"/>
+  <xacro:property name="link_finger_2_name" value="finger_2"/>
+
+  <xacro:if value="${'$(arg finger)' == '20'}">
+    <xacro:property name="joint_finger_2_origin_xyz" value="0.010381 -0.13104 -0.0065"/>
+    <xacro:property name="joint_finger_2_origin_rpy" value="0.0039628 0.54345 0"/>
+    <xacro:property name="joint_finger_2_axis_xyz" value="1 0 0"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '40'}">
+    <xacro:property name="joint_finger_2_origin_xyz" value="0.010381 -0.13104 -0.0021548"/>
+    <xacro:property name="joint_finger_2_origin_rpy" value="0.0039628 0.54345 0"/>
+    <xacro:property name="joint_finger_2_axis_xyz" value="1 0 0"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '60'}">
+    <xacro:property name="joint_finger_2_origin_xyz" value="0.006 -0.13104 -0.01"/>
+    <xacro:property name="joint_finger_2_origin_rpy" value="0.0039628 0 0"/>
+    <xacro:property name="joint_finger_2_axis_xyz" value="0 0 1"/>
+  </xacro:if>
+
+  <xacro:property name="joint_finger_3_name" value="joint_9"/>
+  <xacro:property name="joint_finger_3_type" value="prismatic"/>
+  <xacro:property name="link_finger_3_name" value="finger_3"/>
+
+  <xacro:if value="${'$(arg finger)' == '20'}">
+    <xacro:property name="joint_finger_3_origin_xyz" value="0.0020585 -0.13107 0.005"/>
+    <xacro:property name="joint_finger_3_origin_rpy" value="0.16922 -1.5507 -0.17124"/>
+    <xacro:property name="joint_finger_3_axis_xyz" value="1 0 0"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '40'}">
+    <xacro:property name="joint_finger_3_origin_xyz" value="0.0020585 -0.13107 0.013035"/>
+    <xacro:property name="joint_finger_3_origin_rpy" value="0.16922 -2 -0.17124"/>
+    <xacro:property name="joint_finger_3_axis_xyz" value="0 0 1"/>
+  </xacro:if>
+  <xacro:if value="${'$(arg finger)' == '60'}">
+    <xacro:property name="joint_finger_3_origin_xyz" value="0.0020585 -0.13107 0.013035"/>
+    <xacro:property name="joint_finger_3_origin_rpy" value="0.16922 -2.1 -0.17124"/>
+    <xacro:property name="joint_finger_3_axis_xyz" value="0 0 1"/>
+  </xacro:if>
+  
+  <xacro:property name="ee_name" value="ee"/>
+  <xacro:property name="ee_origin_xyz" value="0 -0.15 0"/>
+  <xacro:property name="ee_origin_rpy" value="-1.5708 -2.598 0"/>
+
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:property name="default_origin_xyz" value="0 0 0"/>
+  <xacro:property name="default_origin_rpy" value="0 0 0"/>
+  
+  <xacro:macro name="gripper_cge_1010" params="
+    pro_gripper
+    prefix
+    gripper
+    finger
+    origin_xyz:=${default_origin_xyz}
+    origin_rpy:=${default_origin_rpy}
+    collision:=true
+    ros2_control:=true
+    ros2_control_plugin:=fake
+    gazebo_preserve_fixed_joint:=false
+  ">
+
+    <!-- 6 -->
+    <xacro:pro_arm_joint_
+    parent="${prefix}link_5"
+    child="${link_6_name}"
+    joint_name="${prefix}${joint_6_name}"
+    joint_type="${joint_6_type}"
+    joint_origin_xyz="${joint_6_origin_xyz}"
+    joint_origin_rpy="${joint_6_origin_rpy}"
+    joint_axis_xyz="${joint_6_axis_xyz}"
+    joint_lower_limit="${joint_6_lower_limit}"
+    joint_upper_limit="${joint_6_upper_limit}"
+    joint_velocity_limit="${joint_6_velocity_limit}"
+    joint_torque_limit="${joint_6_torque_limit}"
+    joint_damping="${joint_6_damping}"
+    joint_friction="${joint_6_friction}"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+    <xacro:dh_gripper_link
+    link_name="${link_6_name}"
+    model="${gripper}"
+    collision="${collision}"
+    mu="${link_6_mu}"
+    />
+
+    <!-- Finger 1 -->
+    <xacro:pro_arm_joint_
+    parent="${link_6_name}"
+    child="${link_finger_1_name}"
+    joint_name="${joint_finger_1_name}"
+    joint_type="${joint_finger_1_type}"
+    joint_origin_xyz="${joint_finger_1_origin_xyz}"
+    joint_origin_rpy="${joint_finger_1_origin_rpy}"
+    joint_axis_xyz="${joint_finger_1_axis_xyz}"
+    joint_lower_limit="${joint_finger_lower_limit}"
+    joint_upper_limit="${joint_finger_upper_limit}"
+    joint_velocity_limit="${joint_finger_velocity_limit}"
+    joint_torque_limit="${joint_finger_torque_limit}"
+    joint_damping="${joint_finger_damping}"
+    joint_friction="${joint_finger_friction}"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+    <xacro:dh_gripper_link
+    link_name="${link_finger_1_name}"
+    model="${gripper}_${finger}"
+    collision="${collision}"
+    mu="${link_finger_mu}"
+    />
+
+    <!-- Finger 2 -->
+    <xacro:pro_arm_joint_
+    parent="${link_6_name}"
+    child="${link_finger_2_name}"
+    joint_name="${joint_finger_2_name}"
+    joint_type="${joint_finger_2_type}"
+    joint_origin_xyz="${joint_finger_2_origin_xyz}"
+    joint_origin_rpy="${joint_finger_2_origin_rpy}"
+    joint_axis_xyz="${joint_finger_2_axis_xyz}"
+    joint_lower_limit="${-joint_finger_upper_limit}"
+    joint_upper_limit="${joint_finger_lower_limit}"
+    joint_velocity_limit="${joint_finger_velocity_limit}"
+    joint_torque_limit="${joint_finger_torque_limit}"
+    joint_damping="${joint_finger_damping}"
+    joint_friction="${joint_finger_friction}"
+    mimic_joint="${joint_finger_1_name}"
+    multiplier="-1.0"
+    offset="0.0"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+    <xacro:dh_gripper_link
+    link_name="${link_finger_2_name}"
+    model="${gripper}_${finger}"
+    collision="${collision}"
+    mu="${link_finger_mu}"
+    />
+
+    <!-- Finger 3 -->
+    <xacro:pro_arm_joint_
+    parent="${link_6_name}"
+    child="${link_finger_3_name}"
+    joint_name="${joint_finger_3_name}"
+    joint_type="${joint_finger_3_type}"
+    joint_origin_xyz="${joint_finger_3_origin_xyz}"
+    joint_origin_rpy="${joint_finger_3_origin_rpy}"
+    joint_axis_xyz="${joint_finger_3_axis_xyz}"
+    joint_lower_limit="${-joint_finger_upper_limit}"
+    joint_upper_limit="${joint_finger_upper_limit}"
+    joint_velocity_limit="${joint_finger_velocity_limit}"
+    joint_torque_limit="${joint_finger_torque_limit}"
+    joint_damping="${joint_finger_damping}"
+    joint_friction="${joint_finger_friction}"
+    mimic_joint="${joint_finger_1_name}"
+    multiplier="-1.0"
+    offset="0.0"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+    <xacro:dh_gripper_link
+    link_name="${link_finger_3_name}"
+    model="${gripper}_${finger}"
+    collision="${collision}"
+    mu="${link_finger_mu}"
+    />
+
+    <!-- End effector -->
+    <xacro:pro_arm_virtual_link
+    parent="${link_6_name}"
+    link_name="${prefix}${ee_name}"
+    joint_origin_xyz="${ee_origin_xyz}"
+    joint_origin_rpy="${ee_origin_rpy}"
+    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
+    />
+
+  </xacro:macro>
+
+</robot>

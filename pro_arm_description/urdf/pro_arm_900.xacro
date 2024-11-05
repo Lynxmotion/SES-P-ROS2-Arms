@@ -49,25 +49,25 @@
   <xacro:property name="base_joint_type" value="fixed"/>
 
   <xacro:property name="joint_1_type" value="revolute"/>
-  <xacro:property name="joint_1_origin_xyz" value="0 0 0.042"/>
-  <xacro:property name="joint_1_origin_rpy" value="1.5708 1.5708 0"/>
-  <xacro:property name="joint_1_axis_xyz" value="1 0 0"/>
+  <xacro:property name="joint_1_origin_xyz" value="0 0 0"/>
+  <xacro:property name="joint_1_origin_rpy" value="1.5707963267949 0 0.0428232118686817"/>
+  <xacro:property name="joint_1_axis_xyz" value="0 -1 0"/>
   <xacro:property name="joint_1_lower_limit" value="${-pi}"/>
   <xacro:property name="joint_1_upper_limit" value="${pi}"/>
 
   <xacro:property name="joint_2_type" value="revolute"/>
-  <xacro:property name="joint_2_origin_xyz" value="-0.075 0 -0.063583"/>
-  <xacro:property name="joint_2_origin_rpy" value="-1.9695 1.5708 -0.87159"/>
-  <xacro:property name="joint_2_axis_xyz" value="1 0 0"/>
-  <xacro:property name="joint_2_lower_limit" value="${-pi/2}"/>
-  <xacro:property name="joint_2_upper_limit" value="${pi/2}"/>
+  <xacro:property name="joint_2_origin_xyz" value="0.0753209069561978 0.108 0"/>
+  <xacro:property name="joint_2_origin_rpy" value="-0.004865934294438 0 0"/>
+  <xacro:property name="joint_2_axis_xyz" value="-1 0 0"/>
+  <xacro:property name="joint_2_lower_limit" value="${-pi}"/>
+  <xacro:property name="joint_2_upper_limit" value="${pi}"/>
 
   <xacro:property name="joint_3_type" value="revolute"/>
-  <xacro:property name="joint_3_origin_xyz" value="0 0.36722 -0.18789"/>
-  <xacro:property name="joint_3_origin_rpy" value="0.31248 0 0"/>
+  <xacro:property name="joint_3_origin_xyz" value="0 0.412499999999363 0"/>
+  <xacro:property name="joint_3_origin_rpy" value="-1.56593039250046 0 0"/>
   <xacro:property name="joint_3_axis_xyz" value="1 0 0"/>
-  <xacro:property name="joint_3_lower_limit" value="${-120*pi/180}"/>
-  <xacro:property name="joint_3_upper_limit" value="${120*pi/180}"/>
+  <xacro:property name="joint_3_lower_limit" value="${-pi}"/>
+  <xacro:property name="joint_3_upper_limit" value="${pi}"/>
 
   <xacro:if value="${'$(arg dof)' == '5'}">
     <xacro:property name="joint_4_type" value="fixed"/>
@@ -79,26 +79,16 @@
     <xacro:property name="joint_4_lower_limit" value="${-pi}"/>
     <xacro:property name="joint_4_upper_limit" value="${pi}"/>
   </xacro:if>
-  <xacro:property name="joint_4_origin_xyz" value="-0.024583 0.0026942 -0.0026942"/>
-  <xacro:property name="joint_4_origin_rpy" value="0 0 0"/>
-  <xacro:property name="joint_4_axis_xyz" value="0 0.70711 -0.70711"/>
+  <xacro:property name="joint_4_origin_xyz" value="-0.0253209069561977 0 0.075"/>
+  <xacro:property name="joint_4_origin_rpy" value="1.5707963267949 0 0"/>
+  <xacro:property name="joint_4_axis_xyz" value="0 -1 0"/>
 
   <xacro:property name="joint_5_type" value="revolute"/>
-  <xacro:property name="joint_5_origin_xyz" value="0.048 0.28828 -0.28828"/>
-  <xacro:property name="joint_5_origin_rpy" value="-0.7854 0 0"/>
-  <xacro:property name="joint_5_axis_xyz" value="1 0 0"/>
+  <xacro:property name="joint_5_origin_xyz" value="0.0751686090232449 0.337500000000057 0"/>
+  <xacro:property name="joint_5_origin_rpy" value="0 0 0"/>
+  <xacro:property name="joint_5_axis_xyz" value="-1 0 0"/>
   <xacro:property name="joint_5_lower_limit" value="${-pi}"/>
   <xacro:property name="joint_5_upper_limit" value="${pi}"/>
-
-  <xacro:property name="joint_6_type" value="revolute"/>
-  <xacro:property name="joint_6_origin_xyz" value="0.076 -0.048 0"/>
-  <xacro:property name="joint_6_origin_rpy" value="3.1416 -1.5454 3.1416"/>
-  <xacro:property name="joint_6_axis_xyz" value="0 1 0"/>
-  <xacro:property name="joint_6_lower_limit" value="${-pi}"/>
-  <xacro:property name="joint_6_upper_limit" value="${pi}"/>
-
-  <xacro:property name="ee_origin_xyz" value="0 -0.025 0"/>
-  <xacro:property name="ee_origin_rpy" value="0 0 0"/>
 
     <!--       -->
     <!-- Macro -->
@@ -273,43 +263,6 @@
     size="900"
     collision="${collision}"
     mu="${mu}"
-    />
-
-    <!-- 6 -->
-    <xacro:pro_arm_joint_
-    parent="${prefix}link_5"
-    child="${prefix}link_6"
-    joint_name="${prefix}joint_6"
-    joint_type="${joint_6_type}"
-    joint_origin_xyz="${joint_6_origin_xyz}"
-    joint_origin_rpy="${joint_6_origin_rpy}"
-    joint_axis_xyz="${joint_6_axis_xyz}"
-    joint_lower_limit="${joint_6_lower_limit}"
-    joint_upper_limit="${joint_6_upper_limit}"
-    joint_velocity_limit="${l1_velocity_limit}"
-    joint_torque_limit="${l1_torque_limit}"
-    joint_damping="${l1_damping}"
-    joint_friction="${l1_friction}"
-    safety_limits="${safety_limits}"
-    safety_position_margin="${safety_position_margin}"
-    safety_k_position="${l1_safety_k_position}"
-    safety_k_velocity="${l1_safety_k_velocity}"
-    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
-    />
-    <xacro:pro_arm_link
-    link_name="${prefix}link_6"
-    size="900"
-    collision="${collision}"
-    mu="${mu}"
-    />
-
-    <!-- End effector -->
-    <xacro:pro_arm_virtual_link
-    parent="${prefix}link_6"
-    link_name="${prefix}ee"
-    joint_origin_xyz="${ee_origin_xyz}"
-    joint_origin_rpy="${ee_origin_rpy}"
-    gazebo_preserve_fixed_joint="${gazebo_preserve_fixed_joint}"
     />
 
      <!-- ROS 2 control -->

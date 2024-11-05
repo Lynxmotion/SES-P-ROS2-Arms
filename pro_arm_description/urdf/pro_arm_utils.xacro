@@ -30,7 +30,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="${mesh_offset_rpy}"/>
         <geometry>
-          <mesh filename="package://pro_arm_description/meshes_${size}/visual/${link_name}.STL"/>
+          <mesh filename="package://pro_arm_description/meshes_${size}/${link_name}.STL"/>
         </geometry>
         <xacro:DarkGreyMaterial/>
       </visual>
@@ -39,12 +39,50 @@
         <collision>
           <origin xyz="0 0 0" rpy="${mesh_offset_rpy}"/>
           <geometry>
-            <mesh filename="package://pro_arm_description/meshes_${size}/collision/${link_name}.STL"/>
+            <mesh filename="package://pro_arm_description/meshes_${size}/${link_name}.STL"/>
           </geometry>
         </collision>
       </xacro:if>
 
       <xacro:pro_arm_inertial mesh="${link_name}_${size}" mesh_offset_rpy="${mesh_offset_rpy}"/>
+    </link>
+
+    <gazebo reference="${link_name}">
+      <mu1 value="${mu}"/>
+      <mu2 value="${mu}"/>
+      <xacro:if value="${gazebo_self_collide}">
+        <self_collide>true</self_collide>
+      </xacro:if>
+    </gazebo>
+  </xacro:macro>
+
+  <xacro:macro name="dh_gripper_link" params="
+    link_name
+    model
+    collision:=true
+    mu:=0.3
+    mesh_offset_rpy:=${mesh_offset_rpy}
+    gazebo_self_collide:=false
+  ">
+    <link name="${link_name}">
+      <visual>
+        <origin xyz="0 0 0" rpy="${mesh_offset_rpy}"/>
+        <geometry>
+          <mesh filename="package://pro_arm_description/grippers/${model}_${link_name}.STL"/>
+        </geometry>
+        <xacro:DarkGreyMaterial/>
+      </visual>
+
+      <xacro:if value="${collision}">
+        <collision>
+          <origin xyz="0 0 0" rpy="${mesh_offset_rpy}"/>
+          <geometry>
+            <mesh filename="package://pro_arm_description/grippers/${model}_${link_name}.STL"/>
+          </geometry>
+        </collision>
+      </xacro:if>
+
+      <xacro:pro_arm_inertial mesh="${link_name}" mesh_offset_rpy="${mesh_offset_rpy}"/>
     </link>
 
     <gazebo reference="${link_name}">
@@ -78,7 +116,7 @@
     multiplier:=1.0
     offset:=0.0
     safety_limits:=false
-    safety_position_margin:=0.1
+    safety_position_margin:=0.0
     safety_k_position:=0.0
     safety_k_velocity:=0.0
     gazebo_spring_stiffness:=0

@@ -19,9 +19,9 @@ def generate_launch_description() -> LaunchDescription:
     prefix = LaunchConfiguration("prefix")
     dof = LaunchConfiguration("dof")
     size = LaunchConfiguration("size")
+    gripper = LaunchConfiguration("gripper")
+    finger = LaunchConfiguration("finger")
     # collision = LaunchConfiguration("collision")
-    # safety_limits = LaunchConfiguration("safety_limits")
-    # safety_position_margin = LaunchConfiguration("safety_position_margin")
     ros2_control = LaunchConfiguration("ros2_control")
     ros2_control_plugin = LaunchConfiguration("ros2_control_plugin")
     # gazebo_preserve_fixed_joint = LaunchConfiguration("gazebo_preserve_fixed_joint")
@@ -48,6 +48,12 @@ def generate_launch_description() -> LaunchDescription:
             " ",
             "size:=",
             size,
+            " ",
+            "gripper:=",
+            gripper,
+            " ",
+            "finger:=",
+            finger,
             " ",
             "ros2_control:=",
             ros2_control,
@@ -134,6 +140,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value='550',
             choices=['550','900'],
             description="Parameter to select size version."
+        ),
+        DeclareLaunchArgument(
+            "gripper",
+            default_value='none',
+            choices=['none','pge_5040','cge_1010'],
+            description="Parameter to select gripper model."
+        ),
+        DeclareLaunchArgument(
+            "finger",
+            default_value='40',
+            choices=['20','40','60','80'],
+            description="Parameter to select finger separation model."
         ),
         # ROS 2 control
         DeclareLaunchArgument(

@@ -31,6 +31,6 @@ if(BUILD_TESTING)
 endif()
 
 # Install directories
-install(DIRECTORY launch models models/pro_arm_6dof_550/meshes_550 models/pro_arm_6dof_900/meshes_900 rviz scripts urdf DESTINATION share/${PROJECT_NAME})
+install(DIRECTORY launch models models/meshes_550 models/meshes_900 models/grippers rviz scripts urdf DESTINATION share/${PROJECT_NAME})
 
 ament_package()

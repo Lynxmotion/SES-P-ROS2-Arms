@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Visualisation of SDF model for PRO 5DoF/6DoF Arm in Ignition Gazebo. Note that the generated model://pro_arm/model.sdf descriptor is required."""
+"""Visualisation of SDF model for PRO 5DoF/6DoF Arm in Ignition Gazebo."""
 
 from os import path
 from typing import List
@@ -28,11 +28,13 @@ def generate_launch_description() -> LaunchDescription:
     world = LaunchConfiguration("world")
     dof = LaunchConfiguration("dof")
     size = LaunchConfiguration("size")
+    gripper = LaunchConfiguration("gripper")
+    finger = LaunchConfiguration("finger")
     use_sim_time = LaunchConfiguration("use_sim_time")
     sim_verbosity = LaunchConfiguration("sim_verbosity")
     log_level = LaunchConfiguration("log_level")
 
-    model = PythonExpression(["'pro_arm_", dof, "dof_", size, "'"])
+    model = PythonExpression(["'pro_arm_", dof, "dof_", size, "_", gripper, "_", finger, ".sdf'"])
 
     # URDF
     _robot_description_xml = Command(
@@ -50,7 +52,13 @@ def generate_launch_description() -> LaunchDescription:
             dof,
             " ",
             "size:=",
-            size
+            size,
+            " ",
+            "gripper:=",
+            gripper,
+            " ",
+            "finger:=",
+            finger
         ]
     )
     robot_description = {"robot_description": _robot_description_xml}
@@ -137,6 +145,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value='550',
             choices=['550','900'],
             description="Parameter to select size version."
+        ),
+        DeclareLaunchArgument(
+            "gripper",
+            default_value='none',
+            choices=['none','pge_5040','cge_1010'],
+            description="Parameter to select gripper model."
+        ),
+        DeclareLaunchArgument(
+            "finger",
+            default_value='40',
+            choices=['20','40','60','80'],
+            description="Parameter to select finger separation model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

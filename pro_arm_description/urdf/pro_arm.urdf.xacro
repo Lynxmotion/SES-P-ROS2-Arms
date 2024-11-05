@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- URDF for PRO 5DoF/6DoF Arms -->
+<!-- URDF for PRO Arms -->
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="$(arg name)">
 
   <!--                   -->
@@ -17,6 +17,12 @@
   <!-- Parameter to select size version -->
   <xacro:arg name="size" default="550"/>
 
+  <!-- Parameter to select gripper model -->
+  <xacro:arg name="gripper" default="none"/>
+
+  <!-- Parameter to select finger separation model -->
+  <xacro:arg name="finger" default="40"/>
+
   <!-- Name of the robot (mandatory) -->
   <xacro:arg name="name" default="pro_arm"/>
 
@@ -26,11 +32,6 @@
 
   <!-- Flag to enable collision geometry for manipulator's arm -->
   <xacro:arg name="collision" default="true"/>
-
-  <!-- Flag to enable safety limits controllers on manipulator joints -->
-  <!-- <xacro:arg name="safety_limits" default="false"/> -->
-  <!-- Lower and upper margin for position limits of all safety controllers (1 deg)-->
-  <!-- <xacro:arg name="safety_position_margin" default="0.17453293"/> -->
 
   <!-- Flag to enable ros2 controllers for manipulator -->
   <xacro:arg name="ros2_control" default="true"/>
@@ -53,10 +54,6 @@
   <xacro:property name="world_name" value="world"/>
   <xacro:property name="origin_xyz" value="0 0 0"/>
   <xacro:property name="origin_rpy" value="0 0 0"/>
-
-  <!-- Offset of gripper with respect to wrist flange -->
-  <!-- <xacro:property name="gripper_offset_xyz" value="0 0 0"/>
-  <xacro:property name="gripper_offset_rpy" value="0 0 0"/> -->
 
   <!--       -->
   <!-- Robot -->
@@ -99,21 +96,45 @@
   </xacro:if>
 
   <!-- Gripper -->
-  <!-- <xacro:include filename="$(find pro_arm_description)/urdf/pro_gripper_4dof.xacro"/>
-  <xacro:gripper_5dof
-    pro_gripper="${prefix_arm}gripper_5dof"
+  <xacro:if value="${'$(arg gripper)' == 'none'}">
+  <xacro:include filename="$(find pro_arm_description)/urdf/no_gripper.xacro"/>
+  <xacro:no_gripper
+    pro_gripper="${'$(arg gripper)'}"
     prefix="${prefix_arm}"
-    origin_xyz="${gripper_offset_xyz}"
-    origin_rpy="${gripper_offset_rpy}"
+    gripper="${'$(arg gripper)'}"
+    size="${'$(arg size)'}"
     collision="$(arg collision)"
-    safety_limits="$(arg safety_limits)"
-    safety_position_margin="$(arg safety_position_margin)"
-    safety_k_position="$(arg safety_k_position)"
-    safety_k_velocity="$(arg safety_k_velocity)"
     ros2_control="$(arg ros2_control)"
     ros2_control_plugin="$(arg ros2_control_plugin)"
     gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
-  /> -->
+  />
+  </xacro:if>
+  <xacro:if value="${'$(arg gripper)' == 'pge_5040'}">
+  <xacro:include filename="$(find pro_arm_description)/urdf/dh_gripper_pge_5040.xacro"/>
+  <xacro:gripper_pge_5040
+    pro_gripper="${'$(arg gripper)'}"
+    prefix="${prefix_arm}"
+    gripper="${'$(arg gripper)'}"
+    finger="${'$(arg finger)'}"
+    collision="$(arg collision)"
+    ros2_control="$(arg ros2_control)"
+    ros2_control_plugin="$(arg ros2_control_plugin)"
+    gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
+  />
+  </xacro:if>
+  <xacro:if value="${'$(arg gripper)' == 'cge_1010'}">
+  <xacro:include filename="$(find pro_arm_description)/urdf/dh_gripper_cge_1010.xacro"/>
+  <xacro:gripper_cge_1010
+    pro_gripper="${'$(arg gripper)'}"
+    prefix="${prefix_arm}"
+    gripper="${'$(arg gripper)'}"
+    finger="${'$(arg finger)'}"
+    collision="$(arg collision)"
+    ros2_control="$(arg ros2_control)"
+    ros2_control_plugin="$(arg ros2_control_plugin)"
+    gazebo_preserve_fixed_joint="$(arg gazebo_preserve_fixed_joint)"
+  />
+  </xacro:if>
 
   <!-- Gazebo - ROS 2 control -->
   <xacro:if value="$(arg ros2_control)">

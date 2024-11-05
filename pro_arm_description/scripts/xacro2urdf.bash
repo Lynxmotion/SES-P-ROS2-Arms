@@ -7,9 +7,11 @@ XACRO_PATH="$(dirname "${SCRIPT_DIR}")/urdf/pro_arm.urdf.xacro"
 # Default parameters
 SIZE=550
 DOF=6
+GRIPPER=none
+FINGER=40
 
 # Parse arguments
-while getopts "d:s:" arg; do
+while getopts "d:s:g:f:" arg; do
   case ${arg} in
     d) case ${OPTARG} in
           5|6) DOF="${OPTARG}" ;;
@@ -21,18 +23,30 @@ while getopts "d:s:" arg; do
           *) echo "Invalid Size: ${OPTARG}. Size can only be 550 or 900." >&2
              exit 1 ;;
         esac ;;
+    g) case ${OPTARG} in
+          none|pge_5040|cge_1010) GRIPPER="${OPTARG}" ;;
+          *) echo "Invalid Gripper: ${OPTARG}. Gripper can only be none, pge_5040 or cge_1010." >&2
+             exit 1 ;;
+        esac ;;
+    f) case ${OPTARG} in
+          20|40|60|80) FINGER="${OPTARG}" ;;
+          *) echo "Invalid Finger: ${OPTARG}. Finger can only be 20, 40, 60 or 80." >&2
+             exit 1 ;;
+        esac ;;
     *) echo "Invalid option: -${OPTARG}" >&2
        exit 1;;
   esac
 done
 
-URDF_PATH="$(dirname "${SCRIPT_DIR}")/urdf/pro_arm_${DOF}dof_${SIZE}.urdf"
+URDF_PATH="$(dirname "${SCRIPT_DIR}")/urdf/pro_arm_${DOF}dof_${SIZE}_${GRIPPER}_${FINGER}.urdf"
 
 # Arguments for xacro
 XACRO_ARGS=(
-    name:=pro_arm_"${DOF}"dof_"${SIZE}"
+    name:=pro_arm_"${DOF}"dof_"${SIZE}_${GRIPPER}_${FINGER}"
     dof:="${DOF}"
     size:="${SIZE}"
+    gripper:="${GRIPPER}"
+    finger:="${FINGER}"
     collision:=true
     ros2_control:=true
     ros2_control_plugin:=sim
