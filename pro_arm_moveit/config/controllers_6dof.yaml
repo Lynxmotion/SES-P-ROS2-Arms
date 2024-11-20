@@ -6,24 +6,11 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
       publish_rate: 30
 
-    # effort_controller:
-    #   type: forward_command_controller/ForwardCommandController
-
     arm_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    # gripper_action_controller:
-    #   type: position_controllers/GripperActionController
-
-# effort_controller:
-#   ros__parameters:
-#     joints:
-#       - pro_arm_joint_1
-#       - pro_arm_joint_2
-#       - pro_arm_joint_3
-#       - pro_arm_joint_4
-#       - pro_arm_joint_5
-#     interface_name: effort
+    gripper_action_controller:
+      type: position_controllers/GripperActionController
 
 arm_trajectory_controller:
   ros__parameters:
@@ -40,20 +27,20 @@ arm_trajectory_controller:
       - position
       - velocity
 
-# gripper_action_controller:
-#   ros__parameters:
-#     joint: pro_arm_joint_5
-#     command_interfaces:
-#       - position
-#     state_interfaces:
-#       - position
-#       - velocity
-#     action_monitor_rate: 20.0
-#     # allow_stalling: true
-#     goal_tolerance: 0.1
-#     max_effort: 0.7
-#     stall_velocity_threshold: 0.001
-#     stall_timeout: 1.0
+gripper_action_controller:
+  ros__parameters:
+    joint: joint_7
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    action_monitor_rate: 20.0
+    # allow_stalling: true
+    goal_tolerance: 0.001
+    max_effort: 0.7
+    stall_velocity_threshold: 0.001
+    stall_timeout: 1.0
 
 # pro_realtime:
 #   ros__parameters:

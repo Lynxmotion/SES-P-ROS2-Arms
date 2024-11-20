@@ -4,7 +4,7 @@
   <version>1.0.0</version>
   <description>C++ and Python examples of using MoveIt2 for planning motions that are executed inside Ignition Gazebo simulation environment</description>
   <author>Geraldine Barreto</author>
-  <maintainer email="gbarreto@robotshop.com"></maintainer>
+  <maintainer email="geraldinebc94@gmail.com"></maintainer>
   <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!--       -->
+  <!-- Macro -->
+  <!--       -->
+  <xacro:macro name="gripper_pge_5040" params="
+    prefix:=pro_arm_
+  ">
+      <group name="gripper">
+          <link name="finger_l"/>
+          <link name="finger_r"/>
+          <joint name="joint_7" />
+          <passive_joint name="joint_8" />
+      </group>
+      <group_state group="gripper" name="close">
+          <joint name="joint_7" value="0.02"/>
+          <joint name="joint_8" value="-0.02"/>
+      </group_state>
+      <group_state group="gripper" name="open">
+          <joint name="joint_7" value="0.0"/>
+          <joint name="joint_8" value="0.0"/>
+      </group_state>
+  </xacro:macro>
+
+  <xacro:macro name="gripper_cge_1010" params="
+    prefix:=pro_arm_
+  ">
+    <group name="gripper">
+        <link name="finger_1"/>
+        <link name="finger_2"/>
+        <link name="finger_3"/>
+        <joint name="joint_7" />
+        <passive_joint name="joint_8" />
+        <passive_joint name="joint_9" />
+    </group>
+    <group_state group="gripper" name="close">
+        <joint name="joint_7" value="0.01"/>
+        <joint name="joint_8" value="-0.01"/>
+        <joint name="joint_9" value="-0.01"/>
+    </group_state>
+    <group_state group="gripper" name="open">
+        <joint name="joint_7" value="0.0"/>
+        <joint name="joint_8" value="0.0"/>
+        <joint name="joint_9" value="0.0"/>
+    </group_state>
+  </xacro:macro>
+</robot>

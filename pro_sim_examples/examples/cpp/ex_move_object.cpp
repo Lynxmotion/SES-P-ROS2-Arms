@@ -34,8 +34,8 @@ MoveItMoveObject::MoveItMoveObject() : Node("ex_move_object"), move_group_(std::
 
     rclcpp::sleep_for(std::chrono::seconds(10));
 
-    this->move_group_.setMaxAccelerationScalingFactor(1.0);
-    this->move_group_.setMaxVelocityScalingFactor(1.0);
+    this->move_group_.setMaxAccelerationScalingFactor(0.5);
+    this->move_group_.setMaxVelocityScalingFactor(0.5);
 }
 
 void MoveItMoveObject::addCollisionObjects()
@@ -58,7 +58,7 @@ void MoveItMoveObject::addCollisionObjects()
 
   /* Define the pose of the table. */
   collision_objects[0].primitive_poses.resize(1);
-  collision_objects[0].primitive_poses[0].position.x = 0.3;
+  collision_objects[0].primitive_poses[0].position.x = 0.35;
   collision_objects[0].primitive_poses[0].position.y = 0;
   collision_objects[0].primitive_poses[0].position.z = 0;
   collision_objects[0].primitive_poses[0].orientation.w = 1.0;
@@ -80,7 +80,7 @@ void MoveItMoveObject::addCollisionObjects()
   /* Define the pose of the table. */
   collision_objects[1].primitive_poses.resize(1);
   collision_objects[1].primitive_poses[0].position.x = 0;
-  collision_objects[1].primitive_poses[0].position.y = 0.3;
+  collision_objects[1].primitive_poses[0].position.y = 0.35;
   collision_objects[1].primitive_poses[0].position.z = 0;
   collision_objects[1].primitive_poses[0].orientation.w = 1.0;
 
@@ -100,7 +100,7 @@ void MoveItMoveObject::addCollisionObjects()
 
   /* Define the pose of the object. */
   collision_objects[2].primitive_poses.resize(1);
-  collision_objects[2].primitive_poses[0].position.x = 0.25;
+  collision_objects[2].primitive_poses[0].position.x = 0.3;
   collision_objects[2].primitive_poses[0].position.y = 0;
   collision_objects[2].primitive_poses[0].position.z = 0.3;
   collision_objects[2].primitive_poses[0].orientation.w = 1.0;
@@ -117,12 +117,12 @@ void MoveItMoveObject::moveToObject()
 {
     geometry_msgs::msg::PoseStamped start_pose;
     start_pose.header.frame_id = "pro_arm_base_link";
-    start_pose.pose.position.x = 0.25;
+    start_pose.pose.position.x = 0.3;
     start_pose.pose.position.y = 0;
     start_pose.pose.position.z = 0.325;
     
     tf2::Quaternion q;
-    q.setRPY(-M_PI/2, 0, 0); // Roll, Pitch, and Yaw
+    q.setRPY(0, 0, 0); // Roll, Pitch, and Yaw
 
     start_pose.pose.orientation.w = q.w();
     start_pose.pose.orientation.x = q.x();
@@ -151,10 +151,10 @@ void MoveItMoveObject::moveToTarget()
     geometry_msgs::msg::PoseStamped target_pose;
     target_pose.header.frame_id = "pro_arm_base_link";
     target_pose.pose.position.x = 0;
-    target_pose.pose.position.y = 0.25;
-    target_pose.pose.position.z = 0.27;
+    target_pose.pose.position.y = 0.3;
+    target_pose.pose.position.z = 0.295;
     tf2::Quaternion q;
-    q.setRPY(-M_PI/2, 0, 0); // Roll, Pitch, and Yaw
+    q.setRPY(0, 0, 0); // Roll, Pitch, and Yaw
 
     target_pose.pose.orientation.w = q.w();
     target_pose.pose.orientation.x = q.x();

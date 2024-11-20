@@ -33,8 +33,14 @@
     <disable_collisions link1="${prefix}link_3" link2="${prefix}link_4" reason="Adjacent"/>
     <disable_collisions link1="${prefix}link_3" link2="${prefix}link_5" reason="Never"/>
     <disable_collisions link1="${prefix}link_4" link2="${prefix}link_5" reason="Adjacent"/>
-    <disable_collisions link1="${prefix}link_3" link2="${prefix}link_6" reason="Never"/>
-    <disable_collisions link1="${prefix}link_5" link2="${prefix}link_6" reason="Adjacent"/>
+    <xacro:if value="${'$(arg gripper)' == 'none'}">
+      <disable_collisions link1="${prefix}link_3" link2="no_gripper" reason="Never"/>
+      <disable_collisions link1="${prefix}link_5" link2="no_gripper" reason="Adjacent"/>
+    </xacro:if>
+    <xacro:if value="${'$(arg gripper)' != 'none'}">
+      <disable_collisions link1="${prefix}link_3" link2="gripper" reason="Never"/>
+      <disable_collisions link1="${prefix}link_5" link2="gripper" reason="Adjacent"/>
+    </xacro:if>
   </xacro:macro>
 
   <xacro:macro name="pro_arm_6dof" params="
@@ -68,7 +74,13 @@
     <disable_collisions link1="${prefix}link_3" link2="${prefix}link_4" reason="Adjacent"/>
     <disable_collisions link1="${prefix}link_3" link2="${prefix}link_5" reason="Never"/>
     <disable_collisions link1="${prefix}link_4" link2="${prefix}link_5" reason="Adjacent"/>
-    <disable_collisions link1="${prefix}link_3" link2="${prefix}link_6" reason="Never"/>
-    <disable_collisions link1="${prefix}link_5" link2="${prefix}link_6" reason="Adjacent"/>
+    <xacro:if value="${'$(arg gripper)' == 'none'}">
+      <disable_collisions link1="${prefix}link_3" link2="no_gripper" reason="Never"/>
+      <disable_collisions link1="${prefix}link_5" link2="no_gripper" reason="Adjacent"/>
+    </xacro:if>
+    <xacro:if value="${'$(arg gripper)' != 'none'}">
+      <disable_collisions link1="${prefix}link_3" link2="gripper" reason="Never"/>
+      <disable_collisions link1="${prefix}link_5" link2="gripper" reason="Adjacent"/>
+    </xacro:if>
   </xacro:macro>
 </robot>

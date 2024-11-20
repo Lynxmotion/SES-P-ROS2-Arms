@@ -33,6 +33,8 @@ def generate_launch_description():
     prefix = LaunchConfiguration("prefix")
     dof = LaunchConfiguration("dof")
     size = LaunchConfiguration("size")
+    gripper = LaunchConfiguration("gripper")
+    finger = LaunchConfiguration("finger")
     # collision = LaunchConfiguration("collision")
     # safety_limits = LaunchConfiguration("safety_limits")
     # safety_position_margin = LaunchConfiguration("safety_position_margin")
@@ -65,6 +67,12 @@ def generate_launch_description():
             "size:=",
             size,
             " ",
+            "gripper:=",
+            gripper,
+            " ",
+            "finger:=",
+            finger,
+            " ",
             "ros2_control:=",
             ros2_control,
             " ",
@@ -93,7 +101,13 @@ def generate_launch_description():
             dof,
             " ",
             "size:=",
-            size
+            size,
+            " ",
+            "gripper:=",
+            gripper,
+            " ",
+            "finger:=",
+            finger
         ]
     )
     robot_description_semantic = {
@@ -136,19 +150,43 @@ def generate_launch_description():
     }
 
     # MoveIt controller manager
-    moveit_controller_manager_yaml_5dof = load_yaml(
-        moveit_config_package, path.join("config", "moveit_controllers_5dof.yaml")
-    )
-    moveit_controller_manager_5dof = {
-        "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
-        "moveit_simple_controller_manager": moveit_controller_manager_yaml_5dof,
+    # Define the parameters for the controllers
+    
+    
+    moveit_controller_manager_no_gripper = {
+        'moveit_controller_manager': 'moveit_simple_controller_manager/MoveItSimpleControllerManager',
+        
+        # List of controller names
+        'moveit_simple_controller_manager.controller_names': ['arm_trajectory_controller'],
+        
+        # Parameters specific to each controller
+        'moveit_simple_controller_manager.arm_trajectory_controller.action_ns': 'follow_joint_trajectory',
+        'moveit_simple_controller_manager.arm_trajectory_controller.type': 'FollowJointTrajectory',
+        'moveit_simple_controller_manager.arm_trajectory_controller.joints': [
+            'pro_arm_joint_1', 'pro_arm_joint_2', 'pro_arm_joint_3',
+            'pro_arm_joint_4', 'pro_arm_joint_5', 'pro_arm_joint_6'
+        ]
     }
-    moveit_controller_manager_yaml_6dof = load_yaml(
-        moveit_config_package, path.join("config", "moveit_controllers_6dof.yaml")
-    )
-    moveit_controller_manager_6dof = {
-        "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
-        "moveit_simple_controller_manager": moveit_controller_manager_yaml_6dof,
+
+    moveit_controller_manager_gripper = {
+        'moveit_controller_manager': 'moveit_simple_controller_manager/MoveItSimpleControllerManager',
+        
+        # List of controller names
+        'moveit_simple_controller_manager.controller_names': ['arm_trajectory_controller', 'gripper_action_controller'],
+        
+        # Parameters specific to each controller
+        'moveit_simple_controller_manager.arm_trajectory_controller.action_ns': 'follow_joint_trajectory',
+        'moveit_simple_controller_manager.arm_trajectory_controller.type': 'FollowJointTrajectory',
+        'moveit_simple_controller_manager.arm_trajectory_controller.joints': [
+            'pro_arm_joint_1', 'pro_arm_joint_2', 'pro_arm_joint_3',
+            'pro_arm_joint_4', 'pro_arm_joint_5', 'pro_arm_joint_6'
+        ],
+        'moveit_simple_controller_manager.arm_trajectory_controller.default': True,
+        
+        'moveit_simple_controller_manager.gripper_action_controller.action_ns': 'gripper_cmd',
+        'moveit_simple_controller_manager.gripper_action_controller.type': 'GripperCommand',
+        'moveit_simple_controller_manager.gripper_action_controller.joints': ['joint_7', 'joint_8'],
+        'moveit_simple_controller_manager.gripper_action_controller.default': True,
     }
 
     # Trajectory execution
@@ -157,7 +195,7 @@ def generate_launch_description():
         "moveit_manage_controllers": False,
         "trajectory_execution.allowed_execution_duration_scaling": 1.2,
         "trajectory_execution.allowed_goal_duration_margin": 0.5,
-        "trajectory_execution.allowed_start_tolerance": 0.1, # UPDATE TO 0.01
+        "trajectory_execution.allowed_start_tolerance": 0.01,
     }
 
     # Controller parameters
@@ -217,14 +255,16 @@ def generate_launch_description():
                 planning_pipeline,
                 trajectory_execution,
                 planning_scene_monitor_parameters,
-                moveit_controller_manager_5dof,
+                moveit_controller_manager_no_gripper,
                 {"use_sim_time": use_sim_time},
             ],
-            condition=IfCondition(
-                PythonExpression(
-                    ["'", dof, "' == '5'"]
+            condition=(
+                IfCondition(
+                    PythonExpression(
+                        ["'", gripper, "' == 'none'"]
+                    )
                 )
-            )
+            ),
         ),
         Node(
             package="moveit_ros_move_group",
@@ -239,14 +279,16 @@ def generate_launch_description():
                 planning_pipeline,
                 trajectory_execution,
                 planning_scene_monitor_parameters,
-                moveit_controller_manager_6dof,
+                moveit_controller_manager_gripper,
                 {"use_sim_time": use_sim_time},
             ],
-            condition=IfCondition(
-                PythonExpression(
-                    ["'", dof, "' == '6'"]
+            condition=(
+                IfCondition(
+                    PythonExpression(
+                        ["'", gripper, "' != 'none'"]
+                    )
                 )
-            )
+            ),
         ),
         # rviz2
         Node(
@@ -269,25 +311,11 @@ def generate_launch_description():
                 {"use_sim_time": use_sim_time},
             ],
             condition=IfCondition(enable_rviz),
-        ),
-        # Node(
-        #     package="controller_manager",
-        #     executable="spawner",
-        #     output="log",
-        #     arguments=["effort_controller", "--ros-args", "--log-level", log_level],
-        #     parameters=[{"use_sim_time": use_sim_time}],
-        #     condition=(
-        #         IfCondition(
-        #             PythonExpression(
-        #                 ["'", ros2_control_plugin, "' == 'real'"]
-        #             )
-        #         )
-        #     ),
-        # )
+        )
     ]
 
     # Add nodes for loading controllers
-    for controller in ["joint_state_broadcaster", "arm_trajectory_controller"]: #"gripper_action_controller"
+    for controller in ["joint_state_broadcaster", "arm_trajectory_controller"]:
         nodes.append(
             Node(
                 package="controller_manager",
@@ -297,6 +325,17 @@ def generate_launch_description():
                 parameters=[{"use_sim_time": use_sim_time}],
              ),
         )
+
+    nodes.append(
+        Node(
+            package="controller_manager",
+            executable="spawner",
+            output="log",
+            arguments=["gripper_action_controller", "--ros-args", "--log-level", log_level],
+            parameters=[{"use_sim_time": use_sim_time}],
+            condition=IfCondition(PythonExpression(["'", gripper, "' != 'none'"]))
+        )
+    )
 
     return LaunchDescription(declared_arguments + nodes)
 
@@ -362,6 +401,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value='550',
             choices=['550','900'],
             description="Parameter to select size version."
+        ),
+        DeclareLaunchArgument(
+            "gripper",
+            default_value='none',
+            choices=['none','pge_5040','cge_1010'],
+            description="Parameter to select gripper model."
+        ),
+        DeclareLaunchArgument(
+            "finger",
+            default_value='40',
+            choices=['20','40','60','80'],
+            description="Parameter to select finger separation model."
         ),
         # # Safety controller
         # DeclareLaunchArgument(

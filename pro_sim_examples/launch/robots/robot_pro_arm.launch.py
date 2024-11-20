@@ -18,10 +18,12 @@ def generate_launch_description() -> LaunchDescription:
     # Get substitution for all arguments
     dof = LaunchConfiguration("dof")
     size = LaunchConfiguration("size")
+    gripper = LaunchConfiguration("gripper")
+    finger = LaunchConfiguration("finger")
     use_sim_time = LaunchConfiguration("use_sim_time")
     log_level = LaunchConfiguration("log_level")
 
-    model = PythonExpression(["'pro_arm_", dof, "dof_", size, "'"])
+    model = PythonExpression(["'pro_arm_", dof, "dof_", size, "_", gripper, "_", finger, ".sdf'"])
 
     # List of nodes to be launched
     nodes = [
@@ -56,6 +58,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
             default_value='550',
             choices=['550','900'],
             description="Parameter to select size version."
+        ),
+        DeclareLaunchArgument(
+            "gripper",
+            default_value='none',
+            choices=['none','pge_5040','cge_1010'],
+            description="Parameter to select gripper model."
+        ),
+        DeclareLaunchArgument(
+            "finger",
+            default_value='40',
+            choices=['20','40','60','80'],
+            description="Parameter to select finger separation model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

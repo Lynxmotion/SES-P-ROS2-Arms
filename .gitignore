@@ -1,0 +1,8 @@
+/build
+/log
+/install
+/*/*env
+*/build
+*/dist
+/*/*.spec
+pro_arm_description/models/*.sdf

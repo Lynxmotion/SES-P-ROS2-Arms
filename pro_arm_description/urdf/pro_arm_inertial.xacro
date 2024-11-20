@@ -17,7 +17,7 @@
       <inertial>
           <origin xyz="0.0 0.0 8.5271E-03" rpy="${mesh_offset_rpy}" />
           <mass value="0.22160" />
-          <inertia ixx="6.019584E-04" ixy="0.0" ixz="0.0" iyy="6.019581E-04" iyz="0.0" izz="1.045194E-03" />
+          <inertia ixx="3.009792E-04" ixy="0.0" ixz="0.0" iyy="3.0097905E-04" iyz="0.0" izz="0.522597E-03" />
       </inertial>
     </xacro:if>
 
@@ -54,7 +54,7 @@
 
     <xacro:if value="${mesh == 'pro_arm_link_5_550'}">
       <inertial>
-          <origin xyz="3.05E-02 -6.16E-03 -0" rpy="${mesh_offset_rpy}" />
+          <origin xyz="3.05E-02 -6.16E-03 0" rpy="${mesh_offset_rpy}" />
           <mass value="1.15770" />
           <inertia ixx="9.4404410E-04" ixy="1.5195580E-05" ixz="4.9237370E-12" iyy="5.9232063E-04" iyz="1.4920415E-13" izz="9.9105550E-04" />
       </inertial>
@@ -63,16 +63,16 @@
     <xacro:if value="${mesh == 'no_gripper'}">
       <inertial>
           <origin xyz="3.838E-15 -0.0125 0.00019576" rpy="${mesh_offset_rpy}" />
-          <mass value="0.02" />
-          <inertia ixx="5.43E-04" ixy="-8.416696E-20" ixz="1.351695E-16" iyy="0.0010076" iyz="1.3098385758E-20" izz="5.4873397E-04" />
+          <mass value="0.2" />
+          <inertia ixx="2.715E-04" ixy="-4.2E-20" ixz="0.6758475E-16" iyy="0.5038E-03" iyz="0.654919288E-20" izz="2.74366985E-04" />
       </inertial>
     </xacro:if>
 
     <xacro:if value="${mesh == 'gripper'}">
       <inertial>
-          <origin xyz="6.90865821423303E-06 -0.0432586850619316 0.000240751590254046" rpy="${mesh_offset_rpy}" />
-          <mass value="0.02" />
-          <inertia ixx="0.000202861419337678" ixy="-1.53256731878157E-10" ixz="1.11253019092264E-06" iyy="0.000235051647536236" iyz="-3.08903188061354E-09" izz="0.000229626333672624" />
+          <origin xyz="3.838E-15 -0.05 0.00019576" rpy="${mesh_offset_rpy}" />
+          <mass value="1.15770" />
+          <inertia ixx="9.4404410E-04" ixy="1.5195580E-05" ixz="4.9237370E-12" iyy="5.9232063E-04" iyz="1.4920415E-13" izz="9.9105550E-04" />
       </inertial>
     </xacro:if>
 
@@ -161,7 +161,7 @@
       <inertial>
           <origin xyz="-3.18713114221077E-18 -8.41743982140174E-19 0.0120054585157587" rpy="${mesh_offset_rpy}" />
           <mass value="0.1" />
-          <inertia ixx="0.00057166" ixy="2.68E-14" ixz="1.4177E-10" iyy="0.0010818" iyz="8.318E-14" izz="0.00057165" />
+          <inertia ixx="3.009792E-04" ixy="0.0" ixz="0.0" iyy="3.0097905E-04" iyz="0.0" izz="0.522597E-03" />
       </inertial>
     </xacro:if>
 
@@ -169,7 +169,7 @@
       <inertial>
           <origin xyz="0.00768704542861023 0.104424113640518 1.11949817072229E-08" rpy="${mesh_offset_rpy}" />
           <mass value="4.5" />
-          <inertia ixx="0.00088344" ixy="-5.4225E-09" ixz="8.5017E-06" iyy="0.00079516" iyz="-4.647E-09" izz="0.00091105" />
+          <inertia ixx="2.053456E-03" ixy="5.340994E-05" ixz="-1.063635E-07" iyy="3.997604E-04" iyz="1.226822E-06" izz="2.077309E-03" />
       </inertial>
     </xacro:if>
 
@@ -177,7 +177,7 @@
       <inertial>
           <origin xyz="0.0927253903047327 0.145333799240662 3.80081442109483E-05" rpy="${mesh_offset_rpy}" />
           <mass value="6" />
-          <inertia ixx="0.00446658697765926" ixy="6.3642133012885E-06" ixz="-3.24696983645431E-06" iyy="0.00237543899149295" iyz="0.000857540011989638" izz="0.00360851353022513" />
+          <inertia ixx="5.3897178E-03" ixy="-8.4792365E-09" ixz="4.7270230E-12" iyy="1.3406068E-03" iyz="-1.1014680E-07" izz="5.9820744E-03" />
       </inertial>
     </xacro:if>
 
@@ -185,7 +185,7 @@
       <inertial>
           <origin xyz="-0.0212087657786883 -0.000107868708243348 0.00966184969041362" rpy="${mesh_offset_rpy}" />
           <mass value="1.52" />
-          <inertia ixx="0.000233120852973728" ixy="-9.91057171035881E-07" ixz="9.28199110265099E-07" iyy="0.000183277421884434" iyz="-8.43247133895977E-06" izz="0.00018278514588324" />
+          <inertia ixx="1.032334E-03" ixy="1.182794E-05" ixz="2.144245E-12" iyy="6.154116E-04" iyz="4.150151E-13" izz="1.076372E-03" />
       </inertial>
     </xacro:if>
 
@@ -193,7 +193,7 @@
       <inertial>
           <origin xyz="0.00320648599400555 0.206688995194095 0.000107786158609774" rpy="${mesh_offset_rpy}" />
           <mass value="1.52" />
-          <inertia ixx="0.00300299624611233" ixy="9.13978026360818E-07" ixz="-8.77916805572091E-07" iyy="0.0019034991115768" iyz="0.00107895702974463" izz="0.00190344015518851" />
+          <inertia ixx="2.5807422E-03" ixy="-1.2371999E-04" ixz="-7.7110451E-09" iyy="1.0628242E-03" iyz="1.4948952E-08" izz="2.9577733E-03" />
       </inertial>
     </xacro:if>
 
@@ -201,7 +201,7 @@
       <inertial>
           <origin xyz="0.0452235102142771 -0.00341925035524782 0.000109704447767508" rpy="${mesh_offset_rpy}" />
           <mass value="1.1" />
-          <inertia ixx="0.000248263918257704" ixy="-1.26708446953254E-06" ixz="2.83208766882495E-08" iyy="0.000198829511118026" iyz="1.04647409519695E-07" izz="0.000183426745229536" />
+          <inertia ixx="9.4404410E-04" ixy="1.5195580E-05" ixz="4.9237370E-12" iyy="5.9232063E-04" iyz="1.4920415E-13" izz="9.9105550E-04" />
       </inertial>
     </xacro:if>
   </xacro:macro>

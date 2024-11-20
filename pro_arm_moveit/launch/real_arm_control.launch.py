@@ -1,5 +1,5 @@
 #!/usr/bin/env -S ros2 launch
-"""Example of planning with MoveIt2 and executing motions using fake ROS 2 controllers within RViz2"""
+"""Example of planning with MoveIt2 within RViz2 and executing motions using real ROS2 controllers and the PRO hardware Interface"""
 
 from os import path
 from typing import List
@@ -11,7 +11,6 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.substitutions import FindPackageShare
 
-
 def generate_launch_description() -> LaunchDescription:
 
     # Declare all launch arguments
@@ -20,8 +19,6 @@ def generate_launch_description() -> LaunchDescription:
     # Get substitution for all arguments
     dof = LaunchConfiguration("dof")
     size = LaunchConfiguration("size")
-    gripper = LaunchConfiguration("gripper")
-    finger = LaunchConfiguration("finger")
     rviz_config = LaunchConfiguration("rviz_config")
     use_sim_time = LaunchConfiguration("use_sim_time")
     log_level = LaunchConfiguration("log_level")
@@ -42,9 +39,7 @@ def generate_launch_description() -> LaunchDescription:
             launch_arguments=[
                 ("dof", dof),
                 ("size", size),
-                ("gripper", gripper),
-                ("finger", finger),
-                ("ros2_control_plugin", "fake"),
+                ("ros2_control_plugin", "real"),
                 ("rviz_config", rviz_config),
                 ("use_sim_time", use_sim_time),
                 ("log_level", log_level),
@@ -61,30 +56,18 @@ def generate_declared_arguments() -> List[DeclareLaunchArgument]:
     """
 
     return [
-        # Version
+        # Degrees of Freedom
         DeclareLaunchArgument(
             "dof",
             default_value='6',
             choices=['5','6'],
-            description="Parameter to select arm version."
+            description="Parameter to select dof version."
         ),
         DeclareLaunchArgument(
             "size",
             default_value='550',
             choices=['550','900'],
             description="Parameter to select size version."
-        ),
-        DeclareLaunchArgument(
-            "gripper",
-            default_value='none',
-            choices=['none','pge_5040','cge_1010'],
-            description="Parameter to select gripper model."
-        ),
-        DeclareLaunchArgument(
-            "finger",
-            default_value='40',
-            choices=['20','40','60','80'],
-            description="Parameter to select finger separation model."
         ),
         # Miscellaneous
         DeclareLaunchArgument(

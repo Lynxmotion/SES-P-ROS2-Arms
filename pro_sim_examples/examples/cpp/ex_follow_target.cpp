@@ -31,8 +31,8 @@ MoveItFollowTarget::MoveItFollowTarget() : Node("ex_follow_target"),
                                            move_group_(std::shared_ptr<rclcpp::Node>(std::move(this)), MOVE_GROUP)
 {
   // Use upper joint velocity and acceleration limits
-  this->move_group_.setMaxAccelerationScalingFactor(1.0);
-  this->move_group_.setMaxVelocityScalingFactor(1.0);
+  this->move_group_.setMaxAccelerationScalingFactor(0.5);
+  this->move_group_.setMaxVelocityScalingFactor(0.5);
 
   // Subscribe to target pose
   target_pose_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>("/target_pose", rclcpp::QoS(1), std::bind(&MoveItFollowTarget::target_pose_callback, this, std::placeholders::_1));
@@ -50,26 +50,13 @@ void MoveItFollowTarget::target_pose_callback(const geometry_msgs::msg::PoseStam
 
   RCLCPP_INFO(this->get_logger(), "Target pose has changed. Planning and executing...");
 
-  // Set default orientation (always parallel to the base)
-  pose_position_only.pose.orientation = tf2::toMsg(q);
-
   // Plan and execute motion towards target pose
   this->move_group_.setPoseTarget(msg->pose);
   moveit::core::MoveItErrorCode success = this->move_group_.move();
 
-  // If unable to move to target pose, try pose_position_only.pose
-  if (!success) {
-    // Calculate the yaw angle based on the target position and the base
-    double yaw = atan2(msg->pose.position.y, msg->pose.position.x);
-
-    // Create a quaternion from the Euler angles
-    tf2::Quaternion q;
-    q.setRPY(1.57, 0.0, yaw); // roll, pitch, yaw
-
-    // Copy the desired pose (goal position w/o orientation)
-    geometry_msgs::msg::PoseStamped pose_position_only = *msg;
-  
-    this->move_group_.setPoseTarget(pose_position_only.pose);
+  // If unable to move to target pose, try position only target
+  if (success != moveit::core::MoveItErrorCode::SUCCESS) {
+    this->move_group_.setPositionTarget(msg->pose.position.x, msg->pose.position.y,  msg->pose.position.z, "pro_arm_ee");
     this->move_group_.move();
   }
 

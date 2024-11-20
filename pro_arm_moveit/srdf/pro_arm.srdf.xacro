@@ -8,9 +8,9 @@
   <!-- Imported elements -->
   <!--                   -->
   <xacro:include filename="$(find pro_arm_moveit)/srdf/pro_arm.xacro" />
-  <!-- <xacro:include filename="$(find pro_arm_moveit)/srdf/pro_gripper.xacro" /> -->
+  <xacro:include filename="$(find pro_arm_moveit)/srdf/gripper.xacro" />
 
-  <!--            -->s
+  <!--            -->
   <!-- Parameters -->
   <!--            -->
   <!-- Name of the robot (mandatory) -->
@@ -20,7 +20,7 @@
   <!-- Parameter to select dof version-->
   <xacro:arg name="dof" default="6"/>
   <!-- Parameter to select size version-->
-  <xacro:arg name="size" default="550"/>
+  <xacro:arg name="gripper" default="none"/>
 
   <!--            -->
   <!-- Properties -->
@@ -35,29 +35,42 @@
     <xacro:pro_arm_5dof
       prefix="${prefix}"
     />
-    <!-- <xacro:gripper_5dof
-      prefix="${prefix}"
-    />
-    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_3" reason="Never"/>
-    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_4" reason="Adjacent"/>
-    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_3" reason="Never"/>
-    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_4" reason="Adjacent"/> -->
   </xacro:if>
 
   <xacro:if value="${'$(arg dof)' == '6'}">
     <xacro:pro_arm_6dof
       prefix="${prefix}"
     />
-    <!-- <xacro:gripper_6dof
-      prefix="${prefix}"
-    />
-    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_4" reason="Never"/>
-    <disable_collisions link1="${prefix}finger_r" link2="${prefix}link_5" reason="Adjacent"/>
-    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_4" reason="Never"/>
-    <disable_collisions link1="${prefix}finger_l" link2="${prefix}link_5" reason="Adjacent"/> -->
   </xacro:if>
 
-  <!-- <end_effector group="gripper" name="gripper" parent_group="pro_arm" parent_link="${prefix}ee"/> -->
+  <xacro:if value="${'$(arg gripper)' == 'pge_5040'}">
+    <xacro:gripper_pge_5040
+        prefix="${prefix}"
+      />
+      <disable_collisions link1="finger_r" link2="${prefix}link_5" reason="Never"/>
+      <disable_collisions link1="finger_r" link2="gripper" reason="Adjacent"/>
+      <disable_collisions link1="finger_l" link2="${prefix}link_5" reason="Never"/>
+      <disable_collisions link1="finger_l" link2="gripper" reason="Adjacent"/>
+      <disable_collisions link1="finger_r" link2="finger_l" reason="Default"/>
+      <end_effector group="gripper" name="gripper" parent_group="pro_arm" parent_link="${prefix}ee"/>
+  </xacro:if>
 
-  <!-- <disable_collisions link1="${prefix}finger_r" link2="${prefix}finger_l" reason="Default"/> -->
+  <xacro:if value="${'$(arg gripper)' == 'cge_1010'}">
+    <xacro:gripper_cge_1010
+        prefix="${prefix}"
+      />
+      <disable_collisions link1="finger_1" link2="${prefix}link_5" reason="Never"/>
+      <disable_collisions link1="finger_1" link2="gripper" reason="Adjacent"/>
+      <disable_collisions link1="finger_2" link2="${prefix}link_5" reason="Never"/>
+      <disable_collisions link1="finger_2" link2="gripper" reason="Adjacent"/>
+      <disable_collisions link1="finger_3" link2="${prefix}link_5" reason="Never"/>
+      <disable_collisions link1="finger_3" link2="gripper" reason="Adjacent"/>
+      <disable_collisions link1="finger_1" link2="finger_2" reason="Default"/>
+      <disable_collisions link1="finger_1" link2="finger_3" reason="Default"/>
+      <disable_collisions link1="finger_2" link2="finger_3" reason="Default"/>
+      <end_effector group="gripper" name="gripper" parent_group="pro_arm" parent_link="${prefix}ee"/>
+  </xacro:if>
+
+  <disable_capabilities>3D Perception</disable_capabilities>
+  
 </robot>

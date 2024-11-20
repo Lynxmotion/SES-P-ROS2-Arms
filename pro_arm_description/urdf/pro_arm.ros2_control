@@ -1,28 +1,23 @@
 <?xml version="1.0"?>
-<!-- Macros that add ros2 control PRO 5DoF/6DoF Arms -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-
-  <!--       -->
-  <!-- Macro -->
-  <!--       -->
   <xacro:macro name="ros2_control_pro_arm" params="
    name:=pro_arm_system
    prefix:=pro_arm_
    plugin:=fake
    command_interface:=position
   ">
+    <!-- Main arm control -->
     <ros2_control name="${name}" type="system">
       <hardware>
         <xacro:if value="${plugin == 'fake'}">
           <plugin>fake_components/GenericSystem</plugin>
         </xacro:if>
         <xacro:if value="${plugin == 'sim'}">
-          <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
           <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </xacro:if>
         <xacro:if value="${plugin == 'real'}">
-          <plugin>lynxmotion/proBus</plugin>
-          <param name="port">/dev/ttyUSB0</param>
+          <plugin>pro_motor_hardware/ProMotorHardware</plugin>
+          <param name="port">/dev/ttyACM0</param>
           <param name="baudrate">921600</param>
           <param name="prefix">pro_arm_joint_</param>
         </xacro:if>
@@ -30,7 +25,11 @@
           <plugin>${plugin}</plugin>
         </xacro:unless>
       </hardware>
+
+      <!-- Real joints (1-6) -->
       <joint name="${prefix}joint_1">
+        <param name="id">1</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -40,16 +39,16 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
       <joint name="${prefix}joint_2">
+        <param name="id">2</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -59,16 +58,16 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
       <joint name="${prefix}joint_3">
+        <param name="id">3</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -78,17 +77,17 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
       <xacro:if value="${'$(arg dof)' == '6'}">
       <joint name="${prefix}joint_4">
+        <param name="id">4</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -98,17 +97,17 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
       </xacro:if>
       <joint name="${prefix}joint_5">
+        <param name="id">5</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -118,16 +117,16 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
       <joint name="${prefix}joint_6">
+        <param name="id">6</param>
+        <param name="direction">1</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -137,58 +136,45 @@
         <xacro:if value="${'velocity' in command_interface}">
           <command_interface name="velocity"/>
         </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
-      <xacro:if value="${'$(arg gripper)' == 'pge_5040'}">
-      <joint name="joint_7">
-        <xacro:if value="${'position' in command_interface}">
-          <command_interface name="position">
-            <param name="min">0</param>
-            <param name="max">0.02</param>
-          </command_interface>
-        </xacro:if>
-        <xacro:if value="${'velocity' in command_interface}">
-          <command_interface name="velocity"/>
-        </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
-        <state_interface name="position">
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
       </joint>
-      </xacro:if>
-      <xacro:if value="${'$(arg gripper)' == 'cge_1010'}">
-      <joint name="joint_7">
-        <xacro:if value="${'position' in command_interface}">
-          <command_interface name="position">
-            <param name="min">0</param>
-            <param name="max">0.01</param>
-          </command_interface>
-        </xacro:if>
-        <xacro:if value="${'velocity' in command_interface}">
-          <command_interface name="velocity"/>
-        </xacro:if>
-        <xacro:if value="${'effort' in command_interface}">
-          <command_interface name="effort"/>
-        </xacro:if>
-        <state_interface name="position">
-          <param name="initial_value">0.0</param>
-        </state_interface>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-      </joint>
-      </xacro:if>
     </ros2_control>
+
+    <!-- Separate gripper control (simulation only) -->
+    <xacro:if value="${'$(arg gripper)' == 'pge_5040' or '$(arg gripper)' == 'cge_1010'}">
+      <ros2_control name="${name}_gripper" type="system">
+        <hardware>
+          <xacro:if value="${plugin == 'fake'}">
+            <plugin>fake_components/GenericSystem</plugin>
+          </xacro:if>
+          <xacro:if value="${plugin == 'sim'}">
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+          </xacro:if>
+        </hardware>
+        <joint name="joint_7">
+          <xacro:if value="${'position' in command_interface}">
+            <command_interface name="position">
+              <param name="min">0</param>
+              <param name="max">0.02</param>
+            </command_interface>
+          </xacro:if>
+          <xacro:if value="${'velocity' in command_interface}">
+            <command_interface name="velocity"/>
+          </xacro:if>
+          <state_interface name="position">
+            <param name="initial_value">0.0</param>
+          </state_interface>
+          <state_interface name="velocity">
+            <param name="initial_value">0.0</param>
+          </state_interface>
+        </joint>
+      </ros2_control>
+    </xacro:if>
   </xacro:macro>
 </robot>
 

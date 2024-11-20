@@ -32,7 +32,7 @@
   </xacro:if>
 
   <xacro:property name="ee_name" value="ee"/>
-  <xacro:property name="ee_origin_xyz" value="0 -0.15 0"/>
+  <xacro:property name="ee_origin_xyz" value="0 -0.03 0"/>
   <xacro:property name="ee_origin_rpy" value="-1.5708 -2.598 0"/>
 
   <!--       -->

@@ -4,7 +4,7 @@
   <name>pro_arm_description</name>
   <version>1.0.0</version>
   <description>SES PRO 5DOF/6DoF Arms Description Package</description>
-  <maintainer email="gbarreto@robotshop.com">Geraldine Barreto</maintainer>
+  <maintainer email="geraldinebc94@gmail.com">Geraldine Barreto</maintainer>
   <license>Apache 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

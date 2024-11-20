@@ -1,0 +1,5 @@
+repositories:
+  pro_hardware_interface:
+    type: git
+    url: https://github.com/Lynxmotion/ros2_pro_hardware.git
+    version: main

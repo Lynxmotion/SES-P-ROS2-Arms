@@ -1,6 +1,6 @@
-# ROS2 PRO Arms Package
+# PRO ROS2 Arms Package
 
-The ROS2-PRO-Arms repository contains common packages that are used by both the physical and simulated LSS Arms (5DoF/6DoF & 550mm/900mm versions).
+The PRO-ROS2-Arms repository contains common packages that are used by both the physical and simulated SES PRO Arms (5DoF/6DoF & 550mm/900mm versions).
 
 ## Table of Contents
 
@@ -26,22 +26,18 @@ sudo pip install vcstool
 sudo apt install python3-rosdep2
 rosdep update
 ```
-5. Catch2
-```
-sudo apt install ros-humble-ament-cmake-catch2
-```
-6. [Gazebo Ignition Fortress](https://gazebosim.org/docs/fortress/install_ubuntu)
+5. [Gazebo Ignition Fortress](https://gazebosim.org/docs/fortress/install_ubuntu)
 
 ## Package installation
 
 ```
-git clone https://github.com/Lynxmotion/lss_pro_tests.git
+git clone https://github.com/Lynxmotion/PRO-ROS2-Arms.git
 ```
 
 ### Install dependencies
 
 ```
-cd lss_pro_tests
+cd PRO-ROS2-Arms
 rosdep install --from-path src -yi --rosdistro humble
 cd src
 vcs import < required.repos
@@ -113,7 +109,7 @@ or
 ```
 bash src/pro_arm_description/scripts/xacro2urdf.bash -d 5 -s 900
 ```
-All the available launch files have the following configuration options:
+The decription and moveit packages launch files have the following configuration options:
 
 **dof**: Which PRO Arm version to use
 - options: 5, 6
@@ -212,14 +208,37 @@ The following launch files are available:
 ros2 launch pro_arm_moveit fake_arm_control.launch.py size:=900
 ```
 
-
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/fake_arm_control.jpg" height="230px"/>
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/fake_arm_control.gif" height="230px"/>
+      </td>
+    </tr>
+  </table>
+</p>
 
 **Simulated controllers (Rviz + Gazebo Ignition Simulation)**
 
 ```
-ros2 launch pro_arm_moveit sim_arm_control.launch.py dof:=5
+ros2 launch pro_arm_moveit sim_arm_control.launch.py
 ```
---------------------------- TODO START ---------------------------
+
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/sim_arm_control.jpg" height="200px"/>
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/sim_arm_control.gif" height="200px"/>
+      </td>
+    </tr>
+  </table>
+</p>
 
 **Real controller (RViz + Real Robot)**
 
@@ -227,50 +246,20 @@ Before controlling the real robot first follow these steps:
 
 1. Update the firmware on the servos using [PRO Config](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo/lss-configuration-software/)
 
-2. Follow the [initial setup](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/ses-software/lss-flowarm/?#HInitialSetup) and make sure the IDs are configured correctly
-
-3. Calibrate the arm using [FlowArm](https://www.robotshop.com/products/lynxmotion-lss-lss-flowarm-app-download)
-
-4. Set the *Gyre Direction* to CCW (-1) for all the motors
+2. Follow the [initial setup](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/ses-software/lss-flowarm/?#HInitialSetup) and make sure the IDs are configured correctly and the arm is calibrated
 
 To control the arm:
 
 1. Run the launch file
 
 ```
-ros2 launch pro_arm_moveit real_arm_control.launch.py dof:=5
+ros2 launch pro_arm_moveit real_arm_control.launch.py
 ```
 
-* Note: If the servos light up *Blue* they have been configured correctly if not try running:
+* Note: If the servos light up *Blue* they have been configured correctly if not try running this first:
 ```
-sudo chmod 766 /dev/ttyUSB0
+sudo chmod 666 /dev/ttyACM0
 ```
-
-2. To activate the servos open another terminal and run:
-```
-ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray "data:
-- 6.8
-- 6.8
-- 6.8
-- 6.8
-- 6.8"
-```
-* Note: For the 6DoF version add an extra - 6.8
-
-3. Now you are able to plan the trajectories using MoveIt2 and execute them with real hardware
-
-To make the servos go Limp use:
-```
-ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray "data:
-- 0
-- 0
-- 0
-- 0
-- 0"
-```
-* Note: For the 6DoF version add an extra - 0
-
---------------------------- TODO END ---------------------------
 
 ### PRO Simulation Examples
 
@@ -281,28 +270,44 @@ ros2 topic pub --once /effort_controller/commands std_msgs/msg/Float64MultiArray
 The pro_sim_examples package includes the follow_target demo which simulates the LSS arm in Gazebo Ignition and allows the user to interact with a box in the virtual environment. This example includes a C++ implementation that makes the arm track the target (box) whenever you change its location.
 
 ```
-ros2 launch pro_sim_examples demo_cpp_follow_target.launch.py
+ros2 launch pro_sim_examples ex_cpp_follow_target.launch.py
 ```
 
-Note: The 5DoF version does not have enough degrees of freedom to achieve all desired end-effector poses. This implementation first attempts to move to the desired pose, if unsuccessful it adjusts the goal orientation so it is parallel to the base of the robot, this allows it to plan a trajectory "ignoring" the orientation.
+Note: The 5DoF version does not have enough degrees of freedom to achieve all desired end-effector poses (position + orientation). This implementation first attempts to move to the desired pose, if unsuccessful it sets a position only target, this allows it to plan a trajectory "ignoring" the orientation.
 
-**Move Object Demo (Simulation)**
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/follow_target_550_pge.jpg" height="260px"/>
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/follow_target_900_cge.gif" height="260px"/>
+      </td>
+    </tr>
+  </table>
+</p>
+
+**Move Object Example (Simulation)**
 
 The move_object example contains a C++ implementation to make the arm move a box from one table to another. The motions are simulated in Gazebo Ignition.
 
 ```
-ros2 launch pro_sim_examples demo_cpp_move_object.launch.py
+ros2 launch pro_sim_examples ex_cpp_move_object.launch.py
 ```
 
-**Python**
-
-**Move to Coordinate (Simulation)**
-
-The move_to+coord example contains a Python implementation to make the arm move to the position the user inputs.
-
-```
-ros2 launch pro_sim_examples demo_py_move_to_coord.launch.py
-```
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/move_object_550.jpg" height="230px"/>
+      </td>
+      <td align="center">
+        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/move_object_900.gif" height="230px"/>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ## Author
 
@@ -314,7 +319,7 @@ Read more about the PRO Robotic Arm in the [Wiki](https://wiki.lynxmotion.com/in
 
 Purchase the PRO arm on [RobotShop](https://www.robotshop.com/collections/lynxmotion-ses-pro-robotic-arms).
 
-Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https://github.com/Lynxmotion/LSS-ROS2-Control). --------------------------- TODO UPDATE ---------------------------
+Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https://github.com/Lynxmotion/PRO-ROS2-Hardware). 
 
 If you want more details about the LSS-P communication protocol, visit this [website](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo-pro/lss-p-communication-protocol/).
 
