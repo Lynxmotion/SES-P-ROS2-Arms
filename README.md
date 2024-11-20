@@ -138,15 +138,15 @@ ros2 launch pro_arm_description view.launch.py
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_550.jpg" height="210px"/>
         <br>size 550mm gripper none
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_pge_5040_40.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_550_pge_5040_40.jpg" height="210px"/>
         <br>size 550mm gripper pge_5040 finger 40
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_cge_1010_20.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_550_cge_1010_20.jpg" height="210px"/>
         <br>size 550mm gripper cge_1010 finger 20
       </td>
     </tr>
@@ -154,15 +154,15 @@ ros2 launch pro_arm_description view.launch.py
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_900.jpg" height="210px"/>
         <br>size 900mm gripper none
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900_pge_5040_80.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_900_pge_5040_80.jpg" height="210px"/>
         <br>size 900mm gripper pge_5040 finger 80
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_900_cge_1010_60.jpg" height="210px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_900_cge_1010_60.jpg" height="210px"/>
         <br>size 900mm gripper cge_1010 finger 60
       </td>
     </tr>
@@ -170,7 +170,7 @@ ros2 launch pro_arm_description view.launch.py
 </p>
 
 <p align="center">
-  <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/rviz_view_550_pge_5040_60.gif" width="600px"/>
+  <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/rviz_view_550_pge_5040_60.gif" width="600px"/>
 </p>
 
 **View in Gazebo Ignition**
@@ -180,7 +180,7 @@ ros2 launch pro_arm_description view_ign.launch.py size:=900 gripper:=pge_5040 f
 ```
 
 <p align="center">
-  <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/ign_view_900_pge_5040_60.jpg" width="600px"/>
+  <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/ign_view_900_pge_5040_60.jpg" width="600px"/>
 </p>
 
 * Note that the generated SDF model is required.
@@ -212,10 +212,10 @@ ros2 launch pro_arm_moveit fake_arm_control.launch.py size:=900
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/fake_arm_control.jpg" height="230px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/fake_arm_control.jpg" height="230px"/>
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/fake_arm_control.gif" height="230px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/fake_arm_control.gif" height="230px"/>
       </td>
     </tr>
   </table>
@@ -231,10 +231,10 @@ ros2 launch pro_arm_moveit sim_arm_control.launch.py
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/sim_arm_control.jpg" height="200px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/sim_arm_control.jpg" height="200px"/>
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/sim_arm_control.gif" height="200px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/sim_arm_control.gif" height="200px"/>
       </td>
     </tr>
   </table>
@@ -279,10 +279,10 @@ Note: The 5DoF version does not have enough degrees of freedom to achieve all de
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/follow_target_550_pge.jpg" height="260px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/follow_target_550_pge.jpg" height="260px"/>
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/follow_target_900_cge.gif" height="260px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/follow_target_900_cge.gif" height="260px"/>
       </td>
     </tr>
   </table>
@@ -300,10 +300,10 @@ ros2 launch pro_sim_examples ex_cpp_move_object.launch.py
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/move_object_550.jpg" height="230px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/move_object_550.jpg" height="230px"/>
       </td>
       <td align="center">
-        <img src="https://github.com/geraldinebc/lss_pro_tests/blob/main/images/move_object_900.gif" height="230px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/move_object_900.gif" height="230px"/>
       </td>
     </tr>
   </table>
