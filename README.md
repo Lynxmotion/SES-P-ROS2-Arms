@@ -32,6 +32,9 @@ rosdep update
 
 ```
 git clone https://github.com/Lynxmotion/PRO-ROS2-Arms.git
+mkdir -p src
+mv PRO-ROS2-Arms/* src
+mv src PRO-ROS2-Arms
 ```
 
 ### Install dependencies
@@ -342,7 +345,7 @@ Read more about the PRO Robotic Arm in the [Wiki](https://wiki.lynxmotion.com/in
 
 Purchase the PRO arm on [RobotShop](https://www.robotshop.com/collections/lynxmotion-ses-pro-robotic-arms).
 
-Official Lynxmotion Smart Servo (LSS) Hardware Interface available [here](https://github.com/Lynxmotion/PRO-ROS2-Hardware). 
+Official Lynxmotion Smart Servo PRO (LSS-P) Hardware Interface available [here](https://github.com/Lynxmotion/LSS-P-ROS2-Hardware). 
 
 If you want more details about the LSS-P communication protocol, visit this [website](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo-pro/lss-p-communication-protocol/).
 
