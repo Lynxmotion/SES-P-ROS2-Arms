@@ -202,6 +202,29 @@ bash src/pro_arm_description/scripts/xacro2urdf.bash -d 5 -s 900
 
 The following launch files are available:
 
+**Base control launch file**
+
+
+```
+ros2 launch pro_arm_moveit move_arm_control.launch.py
+```
+
+<p align="center">
+  <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/move_arm_control.png" height="230px"/>
+</p>
+
+
+* Note: This also launches the emergency_stop_marker node that integrates an interctive marker to STOP/START the arm_trajectory_controller. This functions as an Emergency Stop button but the same behavior can be achieved by running the folowing commands on a different terminal:
+
+```
+ros2 run pro_arm_moveit trigger_emergency_stop.py start
+```
+```
+ros2 run pro_arm_moveit trigger_emergency_stop.py stop
+```
+
+These commands are available for the rest of the pro_arm_moveit package.
+
 **Fake controllers (Rviz)**
 
 ```

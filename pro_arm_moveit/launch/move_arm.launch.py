@@ -311,7 +311,15 @@ def generate_launch_description():
                 {"use_sim_time": use_sim_time},
             ],
             condition=IfCondition(enable_rviz),
-        )
+        ),
+        # Add the emergency stop marker node
+        Node(
+            package="pro_arm_moveit",
+            executable="emergency_stop_marker.py",
+            name="emergency_stop_marker",
+            output="screen",
+            parameters=[{"use_sim_time": use_sim_time}],
+        ),
     ]
 
     # Add nodes for loading controllers
