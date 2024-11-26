@@ -17,7 +17,7 @@
   <!--    Lite    -->
   <!--    Servo   -->
   <xacro:property name="l1_torque_limit" value="19"/>
-  <xacro:property name="l1_velocity_limit" value="0.78540"/>
+  <xacro:property name="l1_velocity_limit" value="1.31"/>
   <xacro:property name="l1_damping" value="0.1"/>
   <xacro:property name="l1_friction" value="0.5"/>
   <xacro:property name="l1_safety_k_position" value="0"/>
@@ -27,7 +27,7 @@
   <!--  Standard  -->
   <!--   Servo    -->
   <xacro:property name="s1_torque_limit" value="54"/>
-  <xacro:property name="s1_velocity_limit" value="0.78540"/>
+  <xacro:property name="s1_velocity_limit" value="1.57"/>
   <xacro:property name="s1_damping" value="0.1"/>
   <xacro:property name="s1_friction" value="0.5"/>
   <xacro:property name="s1_safety_k_position" value="0"/>
@@ -37,7 +37,7 @@
   <!--    Mega    -->
   <!--    Servo   -->
   <xacro:property name="m1_torque_limit" value="130"/>
-  <xacro:property name="m1_velocity_limit" value="1.57"/>
+  <xacro:property name="m1_velocity_limit" value="1.13"/>
   <xacro:property name="m1_damping" value="0.1"/>
   <xacro:property name="m1_friction" value="0.5"/>
   <xacro:property name="m1_safety_k_position" value="0"/>
@@ -105,6 +105,7 @@
       safety_position_margin:=${pi/180}
       ros2_control:=true
       ros2_control_plugin:=fake
+      size:=900
       gazebo_preserve_fixed_joint:=false
     ">
 

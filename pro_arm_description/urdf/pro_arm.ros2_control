@@ -29,7 +29,12 @@
       <!-- Real joints (1-6) -->
       <joint name="${prefix}joint_1">
         <param name="id">1</param>
-        <param name="direction">1</param>
+        <xacro:if value="${550 == size}">
+          <param name="max_speed">90</param>
+        </xacro:if>
+        <xacro:if value="${900 == size}">
+          <param name="max_speed">65</param>
+        </xacro:if>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -48,7 +53,12 @@
       </joint>
       <joint name="${prefix}joint_2">
         <param name="id">2</param>
-        <param name="direction">1</param>
+        <xacro:if value="${550 == size}">
+          <param name="max_speed">90</param>
+        </xacro:if>
+        <xacro:if value="${900 == size}">
+          <param name="max_speed">65</param>
+        </xacro:if>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -67,7 +77,7 @@
       </joint>
       <joint name="${prefix}joint_3">
         <param name="id">3</param>
-        <param name="direction">1</param>
+        <param name="max_speed">90</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -87,7 +97,7 @@
       <xacro:if value="${'$(arg dof)' == '6'}">
       <joint name="${prefix}joint_4">
         <param name="id">4</param>
-        <param name="direction">1</param>
+        <param name="max_speed">90</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -107,7 +117,7 @@
       </xacro:if>
       <joint name="${prefix}joint_5">
         <param name="id">5</param>
-        <param name="direction">1</param>
+        <param name="max_speed">75</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -126,7 +136,7 @@
       </joint>
       <joint name="${prefix}joint_6">
         <param name="id">6</param>
-        <param name="direction">1</param>
+        <param name="max_speed">75</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
