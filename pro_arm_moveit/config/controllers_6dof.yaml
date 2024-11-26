@@ -36,7 +36,7 @@ gripper_action_controller:
       - position
       - velocity
     action_monitor_rate: 20.0
-    # allow_stalling: true
+    allow_stalling: true
     goal_tolerance: 0.001
     max_effort: 0.7
     stall_velocity_threshold: 0.001
