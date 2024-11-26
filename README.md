@@ -1,6 +1,6 @@
-# PRO ROS2 Arms Package
+# SES-P ROS2 Arms Package
 
-The PRO-ROS2-Arms repository contains common packages that are used by both the physical and simulated SES PRO Arms (5DoF/6DoF & 550mm/900mm versions).
+The SES-P-ROS2-Arms repository contains common packages that are used by both the physical and simulated SES PRO Arms (5DoF/6DoF & 550mm/900mm versions).
 
 ## Table of Contents
 
@@ -31,16 +31,16 @@ rosdep update
 ## Package installation
 
 ```
-git clone https://github.com/Lynxmotion/PRO-ROS2-Arms.git
+git clone https://github.com/Lynxmotion/SES-P-ROS2-Arms.git
 mkdir -p src
-mv PRO-ROS2-Arms/* src
-mv src PRO-ROS2-Arms
+mv SES-P-ROS2-Arms/* src
+mv src SES-P-ROS2-Arms
 ```
 
 ### Install dependencies
 
 ```
-cd PRO-ROS2-Arms
+cd SES-P-ROS2-Arms
 rosdep install --from-path src -yi --rosdistro humble
 cd src
 vcs import < required.repos
@@ -209,7 +209,7 @@ The following launch files are available:
 
 
 ```
-ros2 launch pro_arm_moveit move_arm_control.launch.py
+ros2 launch pro_arm_moveit move_arm.launch.py
 ```
 
 <p align="center">
@@ -217,7 +217,7 @@ ros2 launch pro_arm_moveit move_arm_control.launch.py
 </p>
 
 
-* Note: This also launches the emergency_stop_marker node that integrates an interctive marker to STOP/START the arm_trajectory_controller. This functions as an Emergency Stop button but the same behavior can be achieved by running the folowing commands on a different terminal:
+* Note: This also launches the emergency_stop_marker node that integrates an interactive marker to STOP/START the arm_trajectory_controller. This functions as an Emergency Stop button but the same behavior can be achieved by running the folowing commands on a different terminal:
 
 ```
 ros2 run pro_arm_moveit trigger_emergency_stop.py start
@@ -231,7 +231,7 @@ These commands are available for the rest of the pro_arm_moveit package.
 **Fake controllers (Rviz)**
 
 ```
-ros2 launch pro_arm_moveit fake_arm_control.launch.py size:=900
+ros2 launch pro_arm_moveit fake_arm_control.launch.py
 ```
 
 <p align="center">
