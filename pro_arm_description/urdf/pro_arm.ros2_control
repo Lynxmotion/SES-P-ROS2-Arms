@@ -35,6 +35,7 @@
         <xacro:if value="${900 == size}">
           <param name="max_speed">65</param>
         </xacro:if>
+        <param name="acceleration">30</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -59,6 +60,7 @@
         <xacro:if value="${900 == size}">
           <param name="max_speed">65</param>
         </xacro:if>
+        <param name="acceleration">30</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -78,6 +80,7 @@
       <joint name="${prefix}joint_3">
         <param name="id">3</param>
         <param name="max_speed">90</param>
+        <param name="acceleration">30</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -98,6 +101,7 @@
       <joint name="${prefix}joint_4">
         <param name="id">4</param>
         <param name="max_speed">90</param>
+        <param name="acceleration">50</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -113,11 +117,12 @@
         <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
-      </joint>
+        </joint>
       </xacro:if>
       <joint name="${prefix}joint_5">
         <param name="id">5</param>
         <param name="max_speed">75</param>
+        <param name="acceleration">100</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -137,6 +142,7 @@
       <joint name="${prefix}joint_6">
         <param name="id">6</param>
         <param name="max_speed">75</param>
+        <param name="acceleration">100</param>
         <xacro:if value="${'position' in command_interface}">
           <command_interface name="position">
             <param name="min">-3.14</param>
@@ -165,6 +171,9 @@
           <xacro:if value="${plugin == 'sim'}">
             <plugin>ign_ros2_control/IgnitionSystem</plugin>
           </xacro:if>
+          <xacro:if value="${plugin == 'real'}">
+            <plugin>fake_components/GenericSystem</plugin>
+          </xacro:if>
         </hardware>
         <joint name="joint_7">
           <xacro:if value="${'position' in command_interface}">
@@ -187,4 +196,5 @@
     </xacro:if>
   </xacro:macro>
 </robot>
+
 
