@@ -286,12 +286,12 @@ ros2 launch pro_arm_moveit real_arm_control.launch.py
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_ros2_control.gif" height="210px"/>
-        <br>Real time
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_ros2_control.gif" height="250px"/>
+        <br>Example 1: Real time
       </td>
       <td align="center">
-        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_moveit_control.gif" height="210px"/>
-        <br>Speeded up 2x
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_moveit_control.gif" height="250px"/>
+        <br>Example 2: Speeded up 2x
       </td>
     </tr>
   </table>
