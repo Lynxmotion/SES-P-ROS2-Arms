@@ -282,25 +282,27 @@ To control the arm:
 ros2 launch pro_arm_moveit real_arm_control.launch.py
 ```
 
+* Note: If the servos light up *Blue* they have been configured correctly if not try running this first:
+```
+sudo chmod 666 /dev/ttyACM0
+```
+
 <p align="center">
   <table align="center" border="0">
     <tr>
       <td align="center">
-        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_ros2_control.gif" height="250px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_ros2_control.gif" height="300px"/>
         <br>Example 1: Real time
       </td>
       <td align="center">
-        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_moveit_control.gif" height="250px"/>
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_moveit_control.gif" height="300px"/>
         <br>Example 2: Speeded up 2x
       </td>
     </tr>
   </table>
 </p>
 
-* Note: If the servos light up *Blue* they have been configured correctly if not try running this first:
-```
-sudo chmod 666 /dev/ttyACM0
-```
+* Note: The planner uses a velocity and acceleration scaling factor of 0.5, these can be adjusted through RViz. The custom hardware interface also supports setting maximum speed and acceleration values which are configured at the initial stage and can be adjusted in the *pro_arm.ros2_control* file.
 
 ### PRO Simulation Examples
 
