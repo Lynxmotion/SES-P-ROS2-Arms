@@ -282,6 +282,21 @@ To control the arm:
 ros2 launch pro_arm_moveit real_arm_control.launch.py
 ```
 
+<p align="center">
+  <table align="center" border="0">
+    <tr>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_ros2_control.gif" height="210px"/>
+        <br>Real time
+      </td>
+      <td align="center">
+        <img src="https://github.com/Lynxmotion/PRO-ROS2-Arms/blob/main/images/pro_arm_moveit_control.gif" height="210px"/>
+        <br>Speeded up 2x
+      </td>
+    </tr>
+  </table>
+</p>
+
 * Note: If the servos light up *Blue* they have been configured correctly if not try running this first:
 ```
 sudo chmod 666 /dev/ttyACM0
