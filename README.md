@@ -32,6 +32,7 @@ rosdep update
 ## Package installation
 
 ```
+sudo apt install git
 git clone https://github.com/Lynxmotion/SES-P-ROS2-Arms.git
 mkdir -p src
 mv SES-P-ROS2-Arms/* src
