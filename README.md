@@ -14,7 +14,7 @@ The SES-P-ROS2-Arms repository contains common packages that are used by both th
 
 ## Prerequisites
 
-1. [Ubuntu 22.04.3 (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/)
+1. [Ubuntu 22.04 (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/)
 2. [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
 3. ROS2 dev tools:
 ```
